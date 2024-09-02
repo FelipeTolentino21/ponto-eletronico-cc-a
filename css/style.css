@@ -1,3 +1,16 @@
 .data-hora{
     text-align: center;
 }
+
+#dialog-ponto{
+    border-radius: 20px;
+    padding: 30px;
+}
+
+#dialog-fechar{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    border: 0;
+}
