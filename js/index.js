@@ -1,10 +1,3 @@
-navigator.geolocation.getCurrentPosition((position) => {
-    console.log(position);
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
-});
-
-
 // Constantes para definir os elementos 'de horário' e o botão de 'registrar o ponto'
 const diaSemana = document.getElementById("dia-semana");
 const dataAtual = document.getElementById("data-atual");
@@ -17,8 +10,6 @@ btnRegistrarPonto.addEventListener("click", register);
 // Atualização dos textos "dataAtual" e "diaSemana" chamando as funções "getCurrentDate" e "getWeekDay"
 dataAtual.textContent = getCurrentDate();
 diaSemana.textContent = getWeekDay();
-
-
 
 // Constante definindo o dialog "dialog-ponto"
 const dialogPonto = document.getElementById("dialog-ponto");
@@ -43,15 +34,46 @@ dialogHora.textContent = getCurrentTime();
 const btnDialogEntrada = document.getElementById("btn-dialog-entrada");
 const btnDialogSaida = document.getElementById("btn-dialog-saida");
 
-btnDialogEntrada.addEventListener("click", dialogRegister);
-btnDialogSaida.addEventListener("click", dialogRegister);
+btnDialogEntrada.addEventListener("click", () => {
+    saveRegisterLocalStorage(JSON.stringify(getObjetctRegister("entrada")));
+});
+btnDialogSaida.addEventListener("click", () => {
+    saveRegisterLocalStorage(JSON.stringify(getObjetctRegister("saida")));
+});
 
-function dialogRegister(){
-    console.log(getCurrentDate());
-    console.log(getCurrentTime());
+function getObjetctRegister(registerType){
+    getUserLocation();
+
+    ponto = {
+        "date": getCurrentDate(),
+        "time": getCurrentTime(),
+        "location": getUserLocation(),
+        "id": 1,
+        "type": registerType
+    }
+
+    return ponto;
+}
+
+function getUserLocation(){
+    navigator.geolocation.getCurrentPosition((position) => {
+        let userLocation = {
+            "lat": position.coords.latitude,
+            "long": position.coords.longitude
+        }
+        return userLocation;
+    });
 }
 
 
+function saveRegisterLocalStorage(register){
+    localStorage.setItem("register", register);
+}
+
+function getRegisterLocalStorage(key){
+    localStorage.getItem(key);
+    return(key); // ou algo do tipo
+}
 
 // Função registrar abre o "dialogPonto"
 function register(){
@@ -93,16 +115,7 @@ updateContentHour();
 // Função que atuliza a função "updateContentHour" a cada 1000 milisegundos
 setInterval(updateContentHour, 1000);
 
-
-// Console logs para mostrar o dia da semana, a data atual e as horas no console
-console.log(getWeekDay());
-console.log(getCurrentDate());
-console.log(getCurrentTime());
-
-
-
-// A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
-// A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
-// A fazer 3, formatar a data dependendo do local onde o site é acessado
-
-// btnDialogEntrada que recupera as informações (data, hora, localização [latitude, longitude], tipo: entrada) e salvar essas infos num objeto JavaScript
+// ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
+// (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
+// ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
+// (X) A fazer 4, btnDialogEntrada que recupera as informações (data, hora, localização [latitude, longitude], tipo: entrada) e salvar essas infos num objeto JavaScript
