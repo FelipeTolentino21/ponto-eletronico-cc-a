@@ -30,16 +30,33 @@ const dialogHora = document.getElementById("dialog-hora");
 dialogData.textContent = getCurrentDate();
 dialogHora.textContent = getCurrentTime();
 
-
+/*
 const btnDialogEntrada = document.getElementById("btn-dialog-entrada");
 const btnDialogSaida = document.getElementById("btn-dialog-saida");
 
 btnDialogEntrada.addEventListener("click", () => {
-    saveRegisterLocalStorage(JSON.stringify(getObjetctRegister("entrada")));
+    saveRegisterLocalStorage(getObjetctRegister("entrada"));
 });
 btnDialogSaida.addEventListener("click", () => {
-    saveRegisterLocalStorage(JSON.stringify(getObjetctRegister("saida")));
+    saveRegisterLocalStorage(getObjetctRegister("saida"));
 });
+*/
+
+
+// Apresentar para o usuário o valor correspondente ao provável tipo de ponto
+// EX. se o último ponto do usuário for do tipo entrada, selecionar por padrão a option intervalo
+const selectRegisterType = document.getElementById("register-type");
+
+btnDialogRegister = document.getElementById("btn-dialog-register");
+btnDialogRegister.addEventListener("click", ()=>{
+
+    let register = getObjetctRegister(selectRegisterType.value);
+    saveRegisterLocalStorage(register);
+
+    localStorage.setItem("lastRegisterType", selectRegisterType.value);
+    
+})
+
 
 function getObjetctRegister(registerType){
     getUserLocation();
@@ -65,14 +82,23 @@ function getUserLocation(){
     });
 }
 
+let registerLocalStorage = getRegisterLocalStorage("register");
 
+// A Fazer, os índices do array estão sendo salvos como string ao invés de objetos
+// RESOLVER ISSO (parse e stringfy)
 function saveRegisterLocalStorage(register){
-    localStorage.setItem("register", register);
+    registerLocalStorage.push(register);
+
+    localStorage.setItem("register", JSON.stringify(registerLocalStorage));
 }
 
 function getRegisterLocalStorage(key){
-    localStorage.getItem(key);
-    return(key); // ou algo do tipo
+    let register = localStorage.getItem(key);
+
+    if(!register) {
+        return [];
+    }
+    return JSON.parse(register);
 }
 
 // Função registrar abre o "dialogPonto"
@@ -119,3 +145,6 @@ setInterval(updateContentHour, 1000);
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
 // ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
 // (X) A fazer 4, btnDialogEntrada que recupera as informações (data, hora, localização [latitude, longitude], tipo: entrada) e salvar essas infos num objeto JavaScript
+// ( ) A fazer 5, arrumar a localização que aparece, atualmente, no local storage de forma assíncrona
+// ( ) A fazer 6, mostrar ao usuário, no dialog, quando foi seu último "input"
+// ( ) A fazer 7, organizar o código
