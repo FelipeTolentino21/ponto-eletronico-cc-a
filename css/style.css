@@ -1,16 +1,79 @@
+body {
+    background: rgb(203, 241, 245);
+    padding: 0;
+    margin: 0;
+}
+
+.big-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    
+}
+
 .data-hora{
-    text-align: center;
+    font-size: 25px;
 }
 
-#dialog-ponto{
-    border-radius: 20px;
+.labels,#dialog-data,#dialog-hora{
+    font-size: 25px;
+}
+
+#register-type{
+    width: 150px;
+    padding: 4px;
+    font-size: 20px;
+}
+
+#btn-dialog-register{
+    width: 150px;
+    padding: 4px;
+    font-size: 20px;
+}
+
+#btn-registrar-ponto{
+    background-color: rgb(166, 227, 233);
+    border-color: rgb(113, 201, 206);
     padding: 30px;
+    width: 220px;
+    font-size: 20px;
+    border-radius: 10px;
+    border-width: 3px;
 }
 
-#dialog-fechar{
-    position: absolute;
-    top: 10px;
-    right: 10px;
+#dialog-ponto {
+    background-color: rgb(203, 241, 245);
+    border-color: rgb(113, 201, 206);
+    width: 330px;
+    padding: 40px;
+    border-radius: 10px;
+    border-width: 3px;
+  
+}
 
+dialog::backdrop {
+    background: rgb(113, 201, 206);
+    opacity: 20%;
+
+}
+
+#dialog-fechar {
+    padding: 5px;
+    width: 30px;
+    font-size: 20px;
     border: 0;
+}
+
+.align-content-dialog {
+    display: flex;
+    flex-direction: column;
+}
+
+.disalign-close-btn {
+    display: flex;
+    flex-direction: row-reverse;
 }

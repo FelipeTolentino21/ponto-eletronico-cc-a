@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="PT-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de ponto eletrônico</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="data-hora">
-        <P id="dia-semana"></P>
-        <p id="data-atual"></p>
-        <p id="hora-atual"></p>
+    <div class="big-div">
+          <div class="data-hora">
+            <P id="dia-semana"></P>
+            <p id="data-atual"></p>
+            <p id="hora-atual"></p>
+        </div>
+
+        <button id="btn-registrar-ponto"> Registrar ponto </button>
     </div>
-    <button id="btn-registrar-ponto"> Registrar ponto </button>
 
     <dialog id="dialog-ponto">
-        <label>Data: </label><p id="dialog-data"></p>
-        <label>Hora: </label><p id="dialog-hora"></p>
-        <select name="register-type" id="register-type">
-            <option value="entrada">Entrada</option>
-            <option value="intervalo">Intervalo</option>
-            <option value="volta-intervalo">Saida do intervalo</option>
-            <option value="saida">Saida</option>
-        </select>
-        <button id="btn-dialog-register">Registrar</button>
-        <button id="dialog-fechar">X</button>
+        <div class="disalign-close-btn">
+            <button id="dialog-fechar">X</button>
+        </div>
 
-        <!--
-        <button id="btn-dialog-entrada">Entrada</button>
-        <button id="btn-dialog-saida">Saída</button>
-        <button>Intervalo</button>
-        <button>Volta do Intervalo</button>
-        -->
-
+        <div class="align-content-dialog">
+            <label class="labels">Data: </label>
+            <p id="dialog-data"></p>
+            <label class="labels">Hora: </label>
+            <p id="dialog-hora"></p>
+            <select name="register-type" id="register-type">
+                <option value="entrada">Entrada</option>
+                <option value="intervalo">Intervalo</option>
+                <option value="volta-intervalo">Saida do intervalo</option>
+                <option value="saida">Saida</option>
+            </select>
+            <button id="btn-dialog-register">Registrar</button>
+        </div>
     </dialog>
-
     <script src="js/index.js"></script>
 </body>
+
 </html>
