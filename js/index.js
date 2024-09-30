@@ -65,19 +65,53 @@ function setRegisterType(){
 
 }
 
+// Função registrar abre o "dialogPonto"
+function register(){
+    
+    const dialogUltimoRegistro = document.getElementById("dialog-ultimo-registro");
+    let lastRegister = JSON.parse(localStorage.getItem("lastRegister"));
+
+    if (lastRegister){
+        let lastDateRegister = lastRegister.date;
+        let lastTimeRegister = lastRegister.time;
+        let lastRegisterType = lastRegister.type;
+
+        dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " | " + lastTimeRegister + " | " + lastRegisterType;
+    }
+
+    
+    dialogPonto.showModal();
+}
+
 btnDialogRegister = document.getElementById("btn-dialog-register");
 btnDialogRegister.addEventListener("click", ()=>{
 
     let register = getObjetctRegister(selectRegisterType.value);
     saveRegisterLocalStorage(register);
 
-    localStorage.setItem("lastRegisterType", selectRegisterType.value);
-    
-    dialogPonto.close();
+    localStorage.setItem("lastRegister", JSON.stringify(register))
 
-    // Ao invés de só fechar, deixar por 3 a 5 segundos e informar se teve sucesso ou falha
+    const alertaSucesso = document.getElementById("alerta-ponto-registrado");
+    alertaSucesso.classList.remove("hidden");
+    alertaSucesso.classList.add("show");
+
+    setTimeout(() => {
+        alertaSucesso.classList.remove("show");
+        alertaSucesso.classList.add("hidden");
+    }, 5000);
+
+    dialogPonto.close();
 })
 
+function getUserLocation(){
+    navigator.geolocation.getCurrentPosition((position) => {
+        let userLocation = {
+            "lat": position.coords.latitude,
+            "long": position.coords.longitude
+        }
+        return userLocation;
+    });
+}
 
 function getObjetctRegister(registerType){
     getUserLocation();
@@ -93,20 +127,8 @@ function getObjetctRegister(registerType){
     return ponto;
 }
 
-function getUserLocation(){
-    navigator.geolocation.getCurrentPosition((position) => {
-        let userLocation = {
-            "lat": position.coords.latitude,
-            "long": position.coords.longitude
-        }
-        return userLocation;
-    });
-}
-
 let registerLocalStorage = getRegisterLocalStorage("register");
 
-// A Fazer, os índices do array estão sendo salvos como string ao invés de objetos
-// RESOLVER ISSO (parse e stringfy)
 function saveRegisterLocalStorage(register){
     registerLocalStorage.push(register);
 
@@ -122,10 +144,7 @@ function getRegisterLocalStorage(key){
     return JSON.parse(register);
 }
 
-// Função registrar abre o "dialogPonto"
-function register(){
-    dialogPonto.showModal();
-}
+
 // Função que atualiza o texto "horaAtual" e "dialogHora" com o tempo que a função "getCurrentTime" retorna
 function updateContentHour(){
     horaAtual.textContent = getCurrentTime();
