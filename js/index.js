@@ -8,7 +8,7 @@ const btnRegistrarPonto = document.getElementById("btn-registrar-ponto");
 btnRegistrarPonto.addEventListener("click", register);
 
 // Atualização dos textos "dataAtual" e "diaSemana" chamando as funções "getCurrentDate" e "getWeekDay"
-dataAtual.textContent = getCurrentDate();
+dataAtual.textContent = "Data: " + getCurrentDate();
 diaSemana.textContent = getWeekDay();
 
 // Constante definindo o dialog "dialog-ponto"
@@ -62,6 +62,11 @@ function setRegisterType(){
         selectRegisterType.value = "entrada"
     }
 
+    dialogHora.textContent = "Hora: " + getCurrentTime();
+
+    let interval = setInterval(() => {
+        dialogHora.textContent = "Hora: " + getCurrentTime();
+    }, 1000);
 
 }
 
@@ -79,14 +84,19 @@ function register(){
         dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " | " + lastTimeRegister + " | " + lastRegisterType;
     }
 
-    
+    const alertaSucesso = document.getElementById("alerta-ponto-registrado");
+    alertaSucesso.classList.remove("show");
+    alertaSucesso.classList.add("hidden");
+
+    clearTimeout();
+
     dialogPonto.showModal();
 }
 
 btnDialogRegister = document.getElementById("btn-dialog-register");
-btnDialogRegister.addEventListener("click", ()=>{
+btnDialogRegister.addEventListener("click", async ()=>{
 
-    let register = getObjetctRegister(selectRegisterType.value);
+    let register = await getObjetctRegister(selectRegisterType.value);
     saveRegisterLocalStorage(register);
 
     localStorage.setItem("lastRegister", JSON.stringify(register))
@@ -103,6 +113,23 @@ btnDialogRegister.addEventListener("click", ()=>{
     dialogPonto.close();
 })
 
+
+function getUserLocation(){
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            let userLocation = {
+                "latitude": position.coords.latitude,
+                "longitude": position.coords.longitude
+            }
+            resolve(userLocation);
+        }, 
+        (error) => {
+            reject("Erro " + error);
+        });
+    });
+}
+
+/*
 function getUserLocation(){
     navigator.geolocation.getCurrentPosition((position) => {
         let userLocation = {
@@ -112,14 +139,18 @@ function getUserLocation(){
         return userLocation;
     });
 }
+*/
 
-function getObjetctRegister(registerType){
-    getUserLocation();
+async function getObjetctRegister(registerType){
+
+    const location = await getUserLocation();
+
+    console.log(location);
 
     ponto = {
         "date": getCurrentDate(),
         "time": getCurrentTime(),
-        "location": getUserLocation(),
+        "location": location,
         "id": 1,
         "type": registerType
     }
