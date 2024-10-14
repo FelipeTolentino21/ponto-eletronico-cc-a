@@ -216,6 +216,6 @@ setInterval(updateContentHour, 1000);
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
 // ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
 // (X) A fazer 4, btnDialogEntrada que recupera as informações (data, hora, localização [latitude, longitude], tipo: entrada) e salvar essas infos num objeto JavaScript
-// ( ) A fazer 5, arrumar a localização que aparece, atualmente, no local storage de forma assíncrona
+// (X) A fazer 5, arrumar a localização que aparece, atualmente, no local storage de forma assíncrona
 // ( ) A fazer 6, mostrar ao usuário, no dialog, quando foi seu último "input"
 // ( ) A fazer 7, organizar o código

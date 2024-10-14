@@ -33,9 +33,11 @@ body {
     width: 200px;
     padding: 4px;
     font-size: 20px;
+    background-color: rgb(166, 227, 233);
     border-color: rgb(113, 201, 206);
     border-width: 2px;
     border-radius: 5px;
+    transition: background-color 0.3s, font 0.3s;
 }
 
 #btn-registrar-ponto{
@@ -46,6 +48,7 @@ body {
     font-size: 20px;
     border-radius: 10px;
     border-width: 3px;
+    transition: background-color 0.3s, font 0.3s;
 }
 
 #dialog-ponto {
@@ -61,7 +64,6 @@ body {
 dialog::backdrop {
     background: rgb(113, 201, 206);
     opacity: 20%;
-
 }
 
 #dialog-fechar {
@@ -70,12 +72,21 @@ dialog::backdrop {
     font-size: 20px;
     border-color: rgb(113, 201, 206);
     border-radius: 5px;
-    transition: background-color 0.3s, font 0.3s;
+    transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
 
 #dialog-fechar:hover{
     background-color: rgb(255, 54, 54);
+    border-color: rgb(255, 54, 54);
     color: white; 
+}
+
+#btn-registrar-ponto:hover{
+    background-color: rgb(148, 235, 243);
+}
+
+#btn-dialog-register:hover{
+    background-color: rgb(148, 235, 243);
 }
 
 #register-type{
