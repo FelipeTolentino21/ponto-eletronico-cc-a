@@ -20,6 +20,7 @@ const btnDialogFechar = document.getElementById("dialog-fechar");
 // Ao clicar no "btnDialogFechar" a função anônima fecha o "dialogPonto"
 btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
+    pontoAnterior.close();
 });
 
 // Constantes para os texots "dialog-data" e "dialog-hora"
@@ -81,7 +82,7 @@ function register(){
         let lastTimeRegister = lastRegister.time;
         let lastRegisterType = lastRegister.type;
 
-        dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " | " + lastTimeRegister + " | " + lastRegisterType;
+        dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " às " + lastTimeRegister + " durante o registro " + lastRegisterType;
     }
 
     const alertaSucesso = document.getElementById("alerta-ponto-registrado");
@@ -212,10 +213,26 @@ updateContentHour();
 // Função que atuliza a função "updateContentHour" a cada 1000 milisegundos
 setInterval(updateContentHour, 1000);
 
+const pontoAnterior = document.getElementById("ponto-anterior");
+
+const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");
+
+const btnDialogFecharAnt = document.getElementById("dialog-fechar-anterior");
+
+btnRegistrarAnterior.addEventListener("click",() =>{
+    pontoAnterior.showModal();
+});
+
+btnDialogFecharAnt.addEventListener("click", ()=>{
+    pontoAnterior.close();
+})
+
 // ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
 // ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
 // (X) A fazer 4, btnDialogEntrada que recupera as informações (data, hora, localização [latitude, longitude], tipo: entrada) e salvar essas infos num objeto JavaScript
 // (X) A fazer 5, arrumar a localização que aparece, atualmente, no local storage de forma assíncrona
-// ( ) A fazer 6, mostrar ao usuário, no dialog, quando foi seu último "input"
+// (X) A fazer 6, mostrar ao usuário, no dialog, quando foi seu último "input"
 // ( ) A fazer 7, organizar o código
+// ( ) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
+// ( ) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização

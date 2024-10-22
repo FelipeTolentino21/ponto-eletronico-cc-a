@@ -4,20 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de ponto eletrônico</title>
+    <title>Purpura Registrador de ponto eletrônico</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="imgs/hourglass-icon.png">
 </head>
 
 <body>
     <div class="big-div">
+        <h2 id="titulo">Registrador de ponto Purpura</h2> 
           <div class="data-hora">
-            <P id="dia-semana"></P>
+            <p id="dia-semana"></p>
             <p id="data-atual"></p>
             <p id="hora-atual"></p>
 
         </div>
 
         <button id="btn-registrar-ponto"> Registrar ponto </button>
+        <button id="btn-registrar-anterior">Registrar Ponto Anterior</button>
     </div>
 
     
@@ -45,11 +48,26 @@
 
     </dialog>
 
+    <dialog id="ponto-anterior">
+        <div class="disalign-close-btn">
+            <button id="dialog-fechar-anterior">X</button>
+        </div>
+        <div class="align-content-dialog">
+            <p>Insira a data que você quer registrar:</p>
+            <input type="date" id="data-ant">
+            <p>Insira a hora que você quer registrar:</p>
+            <input type="time" id="hora-ant">
+        </div>
+    </dialog>
+
     <div id="alerta-ponto-registrado" class="hidden">
         <p>Ponto registrado com sucesso</p>
     </div>
 
     <script src="js/index.js"></script>
+
+    <a href="registros.html" id="link-registros">Registros Anteriores</a>
+
 </body>
 
 </html>
