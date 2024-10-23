@@ -228,3 +228,4 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 10, botar negrito os textos do código
 // * ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
+// ( ) A fazer 13, trocar a cor dos textos para branco e colocar uma div na big-div para ser um "template" (fundinho)

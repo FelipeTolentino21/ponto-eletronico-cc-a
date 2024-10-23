@@ -16,7 +16,7 @@ body {
     width: 100%;
     height: 95%;
     min-height: 95dvh;
-    color: black;
+    color: white;
     margin-top: 5vh;
     margin-bottom: 15vh;
 }
@@ -133,7 +133,8 @@ dialog::backdrop {
 }
 /**/
 #btn-registrar-anterior{
-
+    /* fazer funfar */
+    transition:1 ; /* tirar isso */
 }
 /**/
 #ponto-anterior{
@@ -181,7 +182,7 @@ dialog::backdrop {
 }
 /**/
 #titulo{
-    color: black;
+    color: white;
     font-size: 55px; 
     text-align: center;
     margin: 0;
@@ -222,6 +223,12 @@ dialog::backdrop {
     width: 400px;
     margin-bottom: 10px;
     font-size: 15px;
+}
+
+#imagem-logo{
+    height: 120px;
+    width: 120px;
+    margin-bottom: 10px;
 }
 
 #arqv-ant{
@@ -271,7 +278,3 @@ dialog::backdrop {
 #dia-semana::first-line{font-weight: bold;}
 #data-atual::first-line{font-weight: bold;}
 #hora-atual::first-line{font-weight: bold;}
-
-#arqv-ant{
-    
-}
