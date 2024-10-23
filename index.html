@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purple Dragon Registrador de ponto eletrônico</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="imgs/purple-dragon-icon.png">
+    <link rel="stylesheet" href="css\style.css">
+    <link rel="icon" href="imgs\purple-dragon-icon.png">
 </head>
 
 <body>
@@ -51,11 +51,22 @@
             <button id="dialog-fechar-anterior">X</button>
         </div>
         <div class="align-content-dialog">
-            <p>Insira a data que você quer registrar:</p>
+            <label class="text-ant"><b>Insira a data que você quer registrar:</b></label>
             <input type="date" id="data-ant">
-            <p>Insira a hora que você quer registrar:</p>
+            <label class="text-ant"><b>Insira a hora que você quer registrar:</b></label>
             <input type="time" id="hora-ant">
-            <button>Registrar</button>
+            <label class="text-ant"><b>Insira o tipo de registro</b></label>
+            <select name="register-type-ant" id="register-type-ant">
+                <option value="entrada">Entrada</option>
+                <option value="intervalo">Intervalo</option>
+                <option value="volta-intervalo">Volta do Intervalo</option>
+                <option value="saida">Saida</option>
+            </select>
+            <label class="text-ant"><b>Escreva a justificativa e/ou coloque em anexo (PNG, PDF ou DOC)</b></label>
+            <textarea id="obs-ant" placeholder="500 caracteres" maxlength="500"></textarea>
+            <input type="file" id="arqv-ant" accept=".png, jpeg, .pdf, .docx">
+            <button id="btn-ant-register">Registrar</button>
+            
         </div>
     </dialog>
 

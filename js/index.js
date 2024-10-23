@@ -14,6 +14,7 @@ const selectRegisterType = document.getElementById("register-type");  // Selecio
 const btnDialogRegister = document.getElementById("btn-dialog-register");  // Botão para confirmar o registro no dialog
 const alertaSucesso = document.getElementById("alerta-ponto-registrado");  // Alerta de sucesso após registrar ponto
 const dialogUltimoRegistro = document.getElementById("dialog-ultimo-registro");  // Exibe o último registro no dialog
+const btnDialogFechar = document.getElementById("dialog-fechar");  // Botão para fechar o dialog de registro de ponto
 
 // *** Elementos HTML relacionados ao dialog de registro anterior ***
 
@@ -21,9 +22,9 @@ const pontoAnterior = document.getElementById("ponto-anterior");  // Dialog para
 const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");  // Botão que abre o dialog de ponto anterior
 const btnDialogFecharAnt = document.getElementById("dialog-fechar-anterior");  // Botão para fechar o dialog de ponto anterior
 
-// *** Elementos HTML para fechamento dos dialogs ***
 
-const btnDialogFechar = document.getElementById("dialog-fechar");  // Botão para fechar o dialog de registro de ponto
+// *** Elementos HTML relacionados a pagina registros.html ***
+const registros = document.getElementById("registros");
 
 // *** Inicializações ***
 dataAtual.textContent = "Data: " + getCurrentDate();  // Define a data atual no elemento HTML
@@ -42,6 +43,51 @@ btnDialogFecharAnt.addEventListener("click", () => pontoAnterior.close());  // F
 
 // *** Funções principais ***
 
+//verificar se está funcionando depois
+function formatarData(data) {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return '${ano}-${mes}-${dia}';
+}
+const today = new Date();   
+const registroDataAnt = document.getElementById("data-ant");
+registroDataAnt.max = formatarData(today);
+
+function registerAntDate(){
+    
+    const selectedDate = new Date(registroDataAnt.value);
+    const todayDate = new Date();
+
+    if(selectedDate > todayDate){
+        alert("Erro! a data que você selecionou é inválida, por favor selecione uma data válida");
+    } 
+
+}
+
+/*
+btnDialogRegister.addEventListener("click", async () => {
+    let register = await getObjetctRegister(selectRegisterType.value);
+
+    // Salva o registro no localStorage
+    saveRegisterLocalStorage(register);
+    localStorage.setItem("lastRegister", JSON.stringify(register));
+
+    // Mostra o alerta de sucesso por 5 segundos
+    const alertaSucesso = document.getElementById("alerta-ponto-registrado");
+    alertaSucesso.classList.remove("hidden");
+    alertaSucesso.classList.add("show");
+
+    setTimeout(() => {
+        alertaSucesso.classList.remove("show");
+        alertaSucesso.classList.add("hidden");
+    }, 5000);
+
+    // Fecha o dialog de registro de ponto
+    dialogPonto.close();
+});
+*/
+
 // Abre o dialog de registro de ponto
 function register() {
     let lastRegister = JSON.parse(localStorage.getItem("lastRegister"));  // Obtém o último registro do localStorage
@@ -54,7 +100,7 @@ function register() {
         dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " às " + lastTimeRegister + " durante o registro " + lastRegisterType;
     }
 
-    // Esconde a mensagem de sucesso, se estiver visível
+    // Esconde a mensagem de sucesso após 5 segundos em que ela estava visível
     alertaSucesso.classList.remove("show");
     alertaSucesso.classList.add("hidden");
 
@@ -177,8 +223,8 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 5, arrumar a localização que aparece, atualmente, no local storage de forma assíncrona
 // (X) A fazer 6, mostrar ao usuário, no dialog, quando foi seu último "input"
 // (X) A fazer 7, organizar o código
-// ( ) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
+// (X) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
 // ( ) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização
-// ( ) A fazer 10, botar negrito os textos do código
+// (X) A fazer 10, botar negrito os textos do código
 // * ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
