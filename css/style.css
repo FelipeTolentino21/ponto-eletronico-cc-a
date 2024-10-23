@@ -1,35 +1,40 @@
+/*Body contendo o background do site*/
 body {
-    background-image: url(imgs/purple_dragons_background.png); //resolver dps
+    background-image: url(/imgs/purple_dragons_background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     padding: 0;
     margin: 0;
-    overflow: hidden;
 }
-
+/*Personalização da caixa de div onde se tem a data/hoda/dia da semana e o botão para registrar ponto*/
 .big-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
-    min-height: 100dvh;
-    color: rgb(58, 2, 48);
+    height: 95%;
+    min-height: 95dvh;
+    color: black;
+    margin-top: 5vh;
+    margin-bottom: 15vh;
 }
-
+/*Personalização da classe data-hora */
 .data-hora{
     font-size: 25px;
 }
-
+/**/
 .labels,#dialog-data,#dialog-hora{
     font-size: 25px;
 }
-
+/**/
 #register-type{
     width: 150px;
     padding: 4px;
     font-size: 20px;
 }
-
+/**/
 #btn-dialog-register{
     width: 200px;
     padding: 4px;
@@ -40,7 +45,7 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s;
 }
-
+/**/
 #btn-registrar-ponto{
     background-color: rgb(95, 11, 103);
     border-color: rgb(112, 18, 174);
@@ -51,8 +56,9 @@ body {
     border-width: 3px;
     transition: background-color 0.3s, font 0.3s;
 }
-
-#dialog-ponto {
+/**/
+#dialog-ponto{
+    font-weight: bold;
     background-color: rgb(95, 5, 93);
     border-color: rgb(112, 18, 174);
     width:400px;
@@ -60,12 +66,12 @@ body {
     border-radius: 10px;
     border-width: 3px;
 }
-
+/**/
 dialog::backdrop {
     background: rgb(113, 3, 125);
     opacity: 20%;
 }
-
+/**/
 #dialog-fechar {
     padding: 5px;
     width: 35px;
@@ -74,21 +80,21 @@ dialog::backdrop {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
-
+/**/
 #dialog-fechar:hover{
     background-color: rgb(255, 54, 54);
     border-color: rgb(255, 54, 54);
     color: white; 
 }
-
+/**/
 #btn-registrar-ponto:hover{
     background-color: rgb(142, 4, 128);
 }
-
+/**/
 #btn-dialog-register:hover{
     background-color: rgb(148, 5, 134);
 }
-
+/**/
 #register-type{
     border-color: rgb(113, 201, 206);
     width: 200px;
@@ -96,34 +102,35 @@ dialog::backdrop {
     border-width: 2px;
     border-radius: 5px;
 }
-
+/**/
 .align-content-dialog {
     display: flex;
     flex-direction: column;
 }
-
+/**/
 .disalign-close-btn {
     display: flex;
     flex-direction: row-reverse;
 }
-
+/**/
 #alerta-ponto-registrado{
+    font-weight: bold;
     border: 1px solid rgb(112, 18, 174);
     border-radius: 10px;
     border-width: 3px;
     position: fixed;
     right: 5px;
     bottom: 5px;
-    background-color: rgb(166, 227, 233);
+    background-color: rgb(112, 18, 174);
     font-size: 20px;
     padding-left: 10px;
     padding-right: 10px;
 }
-
+/**/
 #btn-registrar-anterior{
 
 }
-
+/**/
 #ponto-anterior{
     background-color: rgb(95, 5, 93);
     border-color: rgb(112, 18, 174);
@@ -132,7 +139,7 @@ dialog::backdrop {
     border-radius: 10px;
     border-width: 3px;
 }
-
+/**/
 #dialog-fechar-anterior {
     padding: 5px;
     width: 35px;
@@ -141,48 +148,66 @@ dialog::backdrop {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
-
+/**/
 #dialog-fechar-anterior:hover{
     background-color: rgb(255, 54, 54);
     border-color: rgb(255, 54, 54);
     color: white; 
 }
-
+/**/
 #btn-registrar-anterior{
     border: none;
     background: none;
     transition: color 0.1s;
     text-decoration: underline;
+    margin-top: 10px;
 }
-
+/**/
 #btn-registrar-anterior:hover{
-    color: rgb(99, 1, 132);
+    color: rgb(3, 133, 255);
 }
-
+/**/
 #data-ant{
     width: 100px;
 }
-
+/**/
 #hora-ant{
     width: 100px;
 }
-
-.hidden{
-    opacity: 0;
-}
-
+/**/
 #titulo{
-    color: rgb(58, 2, 48);
+    color: black;
     font-size: 55px; 
     text-align: center;
     margin: 0;
-    margin-bottom: 10vh;
+    margin-bottom: 10px;
 }
-
+/**/
+.hidden{
+    opacity: 0;
+}
+/**/
 .show{
     opacity: 1;
 }
-
+/**/
 #dia-semana::first-line{font-weight: bold;}
 #data-atual::first-line{font-weight: bold;}
 #hora-atual::first-line{font-weight: bold;}
+/**/
+#rodape{
+    position: fixed;
+    bottom: 0px;
+    font-size: 16px;
+
+    text-align: center;
+    padding:5px;
+    margin-top: 20px;
+    width: 100%;
+    background-color: rgb(99, 1, 132);
+}
+/**/
+#link-registros{
+    position: fixed;
+    top: 0px;
+}

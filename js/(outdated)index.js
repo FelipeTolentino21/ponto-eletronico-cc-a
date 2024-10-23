@@ -20,7 +20,6 @@ const btnDialogFechar = document.getElementById("dialog-fechar");
 // Adiciona um evento de clique no botão de fechar o dialog, fechando os dialogs "dialogPonto" e "pontoAnterior"
 btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
-    pontoAnterior.close();
 });
 
 // Obtém os elementos de texto referentes à data e hora no dialog
@@ -80,7 +79,8 @@ function register() {
     alertaSucesso.classList.remove("show");
     alertaSucesso.classList.add("hidden");
 
-    // Abre o dialog de registro de ponto
+    clearTimeout();
+
     dialogPonto.showModal();
 }
 
@@ -200,6 +200,10 @@ const btnDialogFecharAnt = document.getElementById("dialog-fechar-anterior");
 btnRegistrarAnterior.addEventListener("click", () => {
     pontoAnterior.showModal();
 });
+
+btnDialogFecharAnt.addEventListener("click", ()=>{
+    pontoAnterior.close();
+})
 
 // ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
