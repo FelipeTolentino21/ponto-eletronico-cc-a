@@ -1,6 +1,6 @@
 /* Body contendo o background do site*/
 body {
-    background-image: url(/imgs/purple_dragons_background.png);
+    background-image: url(../imgs/purple_dragons_background.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
