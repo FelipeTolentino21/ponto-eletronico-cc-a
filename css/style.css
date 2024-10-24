@@ -16,7 +16,7 @@ body {
     width: 100%;
     height: 95%;
     min-height: 95dvh;
-    color: white;
+    color: rgb(182, 182, 182);
     margin-top: 5vh;
     margin-bottom: 15vh;
 }
@@ -182,7 +182,7 @@ dialog::backdrop {
 }
 /**/
 #titulo{
-    color: white;
+    color: rgb(205, 205, 205);
     font-size: 55px; 
     text-align: center;
     margin: 0;
