@@ -19,8 +19,9 @@ const btnDialogFechar = document.getElementById("dialog-fechar");  // Botão par
 // *** Elementos HTML relacionados ao dialog de registro anterior ***
 
 const pontoAnterior = document.getElementById("ponto-anterior");  // Dialog para exibir o ponto anterior
-const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");  // Botão que abre o dialog de ponto anterior
+const btnPontoAnterior = document.getElementById("btn-ponto-anterior");  // Botão que abre o dialog de ponto anterior
 const btnDialogFecharAnt = document.getElementById("dialog-fechar-anterior");  // Botão para fechar o dialog de ponto anterior
+
 
 
 // *** Elementos HTML relacionados a pagina registros.html ***
@@ -38,55 +39,18 @@ setInterval(updateContentHour, 1000);  // Atualiza a hora a cada segundo
 btnRegistrarPonto.addEventListener("click", register);  // Abre o dialog de registro de ponto
 btnDialogFechar.addEventListener("click", () => dialogPonto.close());  // Fecha o dialog de registro de ponto
 btnDialogRegister.addEventListener("click", handleDialogRegister);  // Lida com o registro de ponto
-btnRegistrarAnterior.addEventListener("click", () => pontoAnterior.showModal());  // Abre o dialog de ponto anterior
-btnDialogFecharAnt.addEventListener("click", () => pontoAnterior.close());  // Fecha o dialog de ponto anterior
-
-// *** Funções principais ***
-
-//verificar se está funcionando depois
-function formatarData(data) {
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-    return '${ano}-${mes}-${dia}';
-}
-const today = new Date();   
-const registroDataAnt = document.getElementById("data-ant");
-registroDataAnt.max = formatarData(today);
-
-function registerAntDate(){
-    
-    const selectedDate = new Date(registroDataAnt.value);
-    const todayDate = new Date();
-
-    if(selectedDate > todayDate){
-        alert("Erro! a data que você selecionou é inválida, por favor selecione uma data válida");
-    } 
-
-}
-
-/*
-btnDialogRegister.addEventListener("click", async () => {
-    let register = await getObjetctRegister(selectRegisterType.value);
-
-    // Salva o registro no localStorage
-    saveRegisterLocalStorage(register);
-    localStorage.setItem("lastRegister", JSON.stringify(register));
-
-    // Mostra o alerta de sucesso por 5 segundos
-    const alertaSucesso = document.getElementById("alerta-ponto-registrado");
-    alertaSucesso.classList.remove("hidden");
-    alertaSucesso.classList.add("show");
-
-    setTimeout(() => {
-        alertaSucesso.classList.remove("show");
-        alertaSucesso.classList.add("hidden");
-    }, 5000);
-
-    // Fecha o dialog de registro de ponto
+// Abre o dialog de ponto anterior e fechar o dialog ponto
+btnPontoAnterior.addEventListener("click", () => {
+    pontoAnterior.showModal();
     dialogPonto.close();
 });
-*/
+// Fecha o dialog de ponto anterior
+btnDialogFecharAnt.addEventListener("click", () => {
+    pontoAnterior.close();
+    dialogPonto.showModal();
+});
+
+// *** Funções principais ***
 
 // Abre o dialog de registro de ponto
 function register() {
@@ -100,7 +64,7 @@ function register() {
         dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " às " + lastTimeRegister + " durante o registro " + lastRegisterType;
     }
 
-    // Esconde a mensagem de sucesso após 5 segundos em que ela estava visível
+    // Esconde a mensagem de sucesso 
     alertaSucesso.classList.remove("show");
     alertaSucesso.classList.add("hidden");
 
@@ -124,25 +88,6 @@ async function handleDialogRegister() {
     }, 5000);
 
     dialogPonto.close();  // Fecha o dialog de registro de ponto
-}
-
-// Define o tipo de registro com base no último registro
-function setRegisterType() {
-    let lastType = localStorage.setItem("lastRegisterType");  // Obtém o último tipo de registro
-
-    // Define o próximo tipo de registro baseado no último
-    if (lastType == "entrada") {
-        selectRegisterType.value = "intervalo";
-    } else if (lastType == "intervalo") {
-        selectRegisterType.value = "volta-intervalo";
-    } else if (lastType == "volta-intervalo") {
-        selectRegisterType.value = "saida";
-    } else if (lastType == "saida") {
-        selectRegisterType.value = "entrada";
-    }
-
-    dialogHora.textContent = "Hora: " + getCurrentTime();  // Atualiza a hora no dialog
-    setInterval(() => dialogHora.textContent = "Hora: " + getCurrentTime(), 1000);  // Atualiza a hora a cada segundo
 }
 
 // *** Funções auxiliares ***
@@ -200,6 +145,36 @@ function getWeekDay() {
     const diasSemana = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
     return diasSemana[new Date().getDay()];  // Retorna o nome do dia da semana
 }
+function formatarData(data) {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    return '${dia}-${mes}-${ano}';
+}
+
+const today = new Date();   
+const registroDataAnt = document.getElementById("data-ant");
+const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");
+btnRegistrarAnterior.addEventListener("click", registerAntDate);
+registroDataAnt.max = formatarData(today);
+
+function registerAntDate(){
+
+    const selectedDate = new Date(registroDataAnt.value);
+    const todayDate = new Date();
+
+    if(selectedDate > todayDate){
+        alert("A data selecionada é inválida, por favor selecione uma data válida");
+    } else{
+        const dataFormatada = registroDataAnt.value;
+
+        localStorage.setItem('registeredAntDate', dataFormatada);
+
+        alert("Data anterior registrada com sucesso");
+
+        dialogUltimoRegistro.textContent = "último Registro(registrado em data anterior)" + selectedDate;
+    }
+}
 
 // *** LocalStorage ***
 
@@ -226,6 +201,8 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
 // ( ) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização
 // (X) A fazer 10, botar negrito os textos do código
-// * ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
+// ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
 // ( ) A fazer 13, trocar a cor dos textos para branco e colocar uma div na big-div para ser um "template" (fundinho)
+// *** ( ) A fazer 14, adicionar todas as funcionalidades do código no JS
+// ( ) A fazer 15, concertar o rodapé, concertar responsividade e concertar o fundo-pagina-inicial

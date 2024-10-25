@@ -1,11 +1,16 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Body contendo o background do site*/
 body {
-    background-image: url(../imgs/purple_dragons_background.png);
+    background-image: url(../imgs/purple_dragons_background.png);/*o .. é para indicar para o githubpages procurar fora do css a imagem do background*/
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding: 0;
     margin: 0;
+    overflow-x:hidden ;
 }
 /* Personalização da caixa de div onde se tem a data/hoda/dia da semana e o botão para registrar ponto*/
 .big-div {
@@ -14,36 +19,70 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 80%;
+    min-height: 80dvh;
+    color: white;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+}
+
+#fundo-pagina-inicial{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
     height: 95%;
     min-height: 95dvh;
-    color: rgb(182, 182, 182);
-    margin-top: 5vh;
-    margin-bottom: 15vh;
+    color: white;
+    background-color: rgb(83, 23, 91);
+    border-radius: 50px;
 }
+
 /* Personalização da classe data-hora */
 .data-hora{
     font-size: 25px;
 }
 /**/
 .labels,#dialog-data,#dialog-hora{
-    font-size: 25px;
-}
-/**/
-#register-type{
-    width: 150px;
-    padding: 4px;
+    padding: 0;
+    margin: 0;
     font-size: 20px;
+    color: white;
 }
+
+/**/
+#dialog-data{
+    margin-bottom: 10px;
+}
+
+/**/
+#dialog-hora{
+    margin-bottom: 10px;
+}
+    
 /**/
 #btn-dialog-register{
-    width: 200px;
+    width: 180px;
     padding: 4px;
+    padding-top: 20px;
+    padding-bottom: 15px;
     font-size: 20px;
     background-color: rgb(83, 23, 91);
     border-color: rgb(112, 18, 174);
     border-width: 2px;
     border-radius: 5px;
+    margin-bottom: 5px;
+    color: white;
     transition: background-color 0.3s, font 0.3s;
+}
+
+#dialog-ultimo-registro{
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+    color: white;
+    font-size: 20px;
 }
 
 /**/
@@ -60,6 +99,7 @@ body {
     font-size: 20px;
     border-radius: 10px;
     border-width: 3px;
+    color: white;
     transition: background-color 0.3s, font 0.3s;
 }
 
@@ -101,9 +141,13 @@ dialog::backdrop {
 
 /**/
 #register-type{
+    margin: 0;
+    padding: 4px;
+    font-size: 20px;
+
     border-color: rgb(113, 201, 206);
     width: 200px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border-width: 2px;
     border-radius: 5px;
 }
@@ -125,17 +169,14 @@ dialog::backdrop {
     border-width: 3px;
     position: fixed;
     right: 5px;
-    bottom: 5px;
+    bottom: 40px;
     background-color: rgb(112, 18, 174);
     font-size: 20px;
     padding-left: 10px;
     padding-right: 10px;
+    color: white;
 }
-/**/
-#btn-registrar-anterior{
-    /* fazer funfar */
-    transition:1 ; /* tirar isso */
-}
+
 /**/
 #ponto-anterior{
     background-color: rgb(95, 5, 93);
@@ -161,15 +202,18 @@ dialog::backdrop {
     color: white; 
 }
 /**/
-#btn-registrar-anterior{
+#btn-ponto-anterior{
+    margin: 0;
+    padding: 0;
+    width: 170px;
     border: none;
     background: none;
     transition: color 0.1s;
     text-decoration: underline;
-    margin-top: 10px;
+    color: white;
 }
 /**/
-#btn-registrar-anterior:hover{
+#btn-ponto-anterior:hover{
     color: rgb(3, 133, 255);
 }
 /**/
@@ -182,11 +226,15 @@ dialog::backdrop {
 }
 /**/
 #titulo{
-    color: rgb(205, 205, 205);
+    color: white;
     font-size: 55px; 
     text-align: center;
     margin: 0;
     margin-bottom: 10px;
+}
+
+#label-type-register{
+    margin-bottom: 5px;
 }
 
 #btn-ant-register{
@@ -217,11 +265,10 @@ dialog::backdrop {
     font-size: 20px;
 }
 
-#obs-ant{
+.textareas{
     resize: none;
     height: 100px;
     width: 400px;
-    margin-bottom: 10px;
     font-size: 15px;
 }
 
@@ -233,35 +280,30 @@ dialog::backdrop {
 
 #arqv-ant{
     font-size: 15px;
+    color: white;
 }
 
-#register-type{
-    width: 150px;
-    padding: 4px;
-    font-size: 20px;
-}
-
-.text-ant{
-    margin-bottom: 10px;
-    font-size: 19px;
-}
 
 /**/
 #rodape{
-    position: fixed;
     bottom: 0px;
     font-size: 16px;
-
     text-align: center;
     padding:5px;
     margin-top: 20px;
     width: 100%;
     background-color: rgb(99, 1, 132);
+    color: white;
 }
 /**/
 #link-registros{
     position: fixed;
     top: 0px;
+}
+
+#obs-dialog-ponto{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /**/

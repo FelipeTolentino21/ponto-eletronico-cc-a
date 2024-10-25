@@ -11,17 +11,16 @@
 
 <body>
     <div class="big-div">
-        <img src="imgs\purple-dragon-icon.png" id="imagem-logo">
+        <div id="fundo-pagina-inicial">
+            <img src="imgs\purple-dragon-icon.png" id="imagem-logo">
         <h2 id="titulo"><b>Purple Dragon Registrador de Ponto</b></h2> 
           <div class="data-hora">
             <p id="dia-semana"></p>
             <p id="data-atual"></p>
             <p id="hora-atual"></p>
-
+            </div>
+            <button id="btn-registrar-ponto"> <b>Registrar ponto</b> </button>
         </div>
-        
-        <button id="btn-registrar-ponto"> <b>Registrar ponto</b> </button>
-        <button id="btn-registrar-anterior"><b>Registrar Ponto Anterior</b></button>
     </div>
 
     <dialog id="dialog-ponto">
@@ -30,17 +29,21 @@
         </div>
 
         <div class="align-content-dialog">
-            <label class="labels">Data: </label>
+            <label class="labels">Data atual: </label>
             <p id="dialog-data"></p>
-            <label class="labels">Hora: </label>
+            <label class="labels">Hora atual: </label>
             <p id="dialog-hora"></p>
+            <label class="labels" id="label-type-register">Selecione o tipo de registro</label>
             <select name="register-type" id="register-type">
                 <option value="entrada">Entrada</option>
                 <option value="intervalo">Intervalo</option>
                 <option value="volta-intervalo">Volta do Intervalo</option>
                 <option value="saida">Saida</option>
             </select>
+            <label class="labels"><b>Escreva uma observação (opcional)</b></label>
+            <textarea class="textareas" id="obs-dialog-ponto" placeholder="500 caracteres" maxlength="500"></textarea>
             <button id="btn-dialog-register">Registrar</button>
+            <button id="btn-ponto-anterior"><b>Registrar Ponto Anterior</b></button>
         </div>
 
         <p id="dialog-ultimo-registro"></p>
@@ -52,21 +55,21 @@
             <button id="dialog-fechar-anterior">X</button>
         </div>
         <div class="align-content-dialog">
-            <label class="text-ant"><b>Insira a data que você quer registrar:</b></label>
+            <label class="labels"><b>Selecione a data do registro:</b></label>
             <input type="date" id="data-ant">
-            <label class="text-ant"><b>Insira a hora que você quer registrar:</b></label>
+            <label class="labels"><b>Selecione a hora do registro:</b></label>
             <input type="time" id="hora-ant">
-            <label class="text-ant"><b>Insira o tipo de registro</b></label>
+            <label class="labels"><b>Selecione o tipo de registro</b></label>
             <select name="register-type-ant" id="register-type-ant">
                 <option value="entrada">Entrada</option>
                 <option value="intervalo">Intervalo</option>
                 <option value="volta-intervalo">Volta do Intervalo</option>
                 <option value="saida">Saida</option>
             </select>
-            <label class="text-ant"><b>Escreva a justificativa e/ou coloque em anexo (PNG, PDF ou DOC)</b></label>
-            <textarea id="obs-ant" placeholder="500 caracteres" maxlength="500"></textarea>
+            <label class="labels"><b>Escreva uma observação (opcional)</b></label>
+            <textarea class="textareas" id="obs-dialog-ant" placeholder="500 caracteres" maxlength="500"></textarea>
             <input type="file" id="arqv-ant" accept=".png, jpeg, .pdf, .docx">
-            <button id="btn-ant-register">Registrar</button>
+            <button type="button" id="btn-registrar-anterior">Registrar</button>
             
         </div>
     </dialog>
@@ -77,11 +80,11 @@
 
     <script src="js/index.js"></script>
 
-    <a href="registros.html" id="link-registros">Registros Anteriores</a>
+    <a href="html\registros.html" id="link-registros">Registros Anteriores</a>
 
     <footer id="rodape"> 
         <b>Criado Por Felipe Tolentino Soares e Luis Guilherme Andrade Palhares de Melo</b>
-    </footer> 
+    </footer>
 
 </body>
 
