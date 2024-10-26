@@ -91,8 +91,7 @@ async function handleDialogRegister() {
 }
 
 // *** Funções auxiliares ***
-
-// Obtém a localização do usuário
+//obtém a localização do usuário e nega o registro caso a permissão de localização não seja autorizada
 function getUserLocation() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
@@ -100,11 +99,17 @@ function getUserLocation() {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             }),
-            error => reject("Erro " + error)  // Trata erros ao obter a localização
+            error => {
+                if (error.code === 1) {
+                    reject("Permissão de localização negada pelo usuário.");
+                    alert("Registro negado! Por favor autorize o site a ver sua localização.");
+                } else {
+                    reject("Erro ao obter localização: " + error.message);
+                }
+            }
         );
     });
 }
-
 // Cria o objeto de registro com as informações do ponto
 async function getObjetctRegister(registerType) {
     const location = await getUserLocation();  // Obtém a localização do usuário
@@ -151,7 +156,7 @@ function formatarData(data) {
     const ano = data.getFullYear();
     return '${dia}-${mes}-${ano}';
 }
-
+// Registra uma data anterior e valida se realmente é anterior ao dia de hoje ou se é uma data futura
 const today = new Date();   
 const registroDataAnt = document.getElementById("data-ant");
 const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");
@@ -199,7 +204,7 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 6, mostrar ao usuário, no dialog, quando foi seu último "input"
 // (X) A fazer 7, organizar o código
 // (X) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
-// ( ) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização
+// (X) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização
 // (X) A fazer 10, botar negrito os textos do código
 // ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
