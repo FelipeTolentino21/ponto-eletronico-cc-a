@@ -75,7 +75,7 @@ function register() {
 // Lida com o registro de ponto no dialog
 async function handleDialogRegister() {
     let register = await getObjetctRegister(selectRegisterType.value);  // Cria o objeto de registro
-    saveRegisterLocalStorage(register);  // Salva o registro no localStorage
+    //saveRegisterLocalStorage(register);  // Salva o registro no localStorage
     localStorage.setItem("lastRegister", JSON.stringify(register));  // Armazena o último registro no localStorage
 
     // Exibe uma mensagem de sucesso temporária
@@ -89,6 +89,35 @@ async function handleDialogRegister() {
 
     dialogPonto.close();  // Fecha o dialog de registro de ponto
 }
+// Conjunto de funções para proibir que o registro selecionado seja o próximo do último que foi selecionado
+// Array com a sequência de registros permitidos
+const sequenciaRegistros = ["entrada", "intervalo", "volta-intervalo", "saida"];
+let estadoAtual = 0; // Índice do próximo registro permitido
+
+document.getElementById("register-type").addEventListener("change", function() {
+    const tipoSelecionado = this.value;
+
+    // Verifica se o tipo selecionado é o próximo na sequência
+    if (tipoSelecionado === sequenciaRegistros[estadoAtual]) {
+        document.getElementById("btn-dialog-register").disabled = false; // Ativa o botão
+    } else {
+        alert("Selecione o próximo tipo de registro na sequência.");
+        this.value = ""; // Reseta a seleção para forçar o usuário a escolher a opção correta
+        document.getElementById("btn-dialog-register").disabled = true; // Desativa o botão
+    }
+});
+
+// Atualiza o estado após o registro
+document.getElementById("btn-dialog-register").addEventListener("click", function() {
+    if (estadoAtual < sequenciaRegistros.length - 1) {
+        estadoAtual++; // Avança para o próximo tipo de registro
+    } else {
+        alert("Todos os registros foram concluídos.");
+        estadoAtual = 0; // Reinicia a sequência
+    }
+    document.getElementById("register-type").value = ""; // Limpa a seleção do dropdown
+    document.getElementById("btn-dialog-register").disabled = true; // Desativa o botão até nova seleção
+});
 
 // *** Funções auxiliares ***
 //obtém a localização do usuário e nega o registro caso a permissão de localização não seja autorizada
@@ -183,6 +212,60 @@ function registerAntDate(){
 
 // *** LocalStorage ***
 
+document.getElementById("btn-dialog-register").addEventListener("click", function() {
+    // Dados do registro atual
+    const tipoRegistro = document.getElementById("register-type").value;
+    const dataRegistro = new Date().toLocaleDateString();
+    const horaRegistro = new Date().toLocaleTimeString();
+    const observacao = document.getElementById("obs-dialog-ponto").value;
+    
+    // Cria o objeto do registro
+    const registro = {
+        tipo: tipoRegistro,
+        data: dataRegistro,
+        hora: horaRegistro,
+        observacao: observacao
+    };
+
+    // Pega registros existentes do localStorage
+    let registros = JSON.parse(localStorage.getItem("registrosPonto")) || [];
+    registros.push(registro); // Adiciona o novo registro
+    localStorage.setItem("registrosPonto", JSON.stringify(registros)); // Salva no localStorage
+    
+    alert("Registro salvo com sucesso!");
+
+    // Reseta o formulário
+    document.getElementById("register-type").value = "";
+    document.getElementById("obs-dialog-ponto").value = "";
+    document.getElementById("btn-dialog-register").disabled = true;
+});
+//Página de relatório
+document.addEventListener("DOMContentLoaded", function() {
+    // Pega os registros do localStorage
+    const registros = JSON.parse(localStorage.getItem("registrosPonto")) || [];
+
+    // Verifica se há registros
+    if (registros.length === 0) {
+        document.getElementById("relatorio").innerHTML = "<p>Nenhum registro encontrado.</p>";
+        return;
+    }
+
+    // Cria a tabela para exibir os registros
+    let tabela = "<table><tr><th>Tipo</th><th>Data</th><th>Hora</th><th>Observação</th></tr>";
+    registros.forEach((registro) => {
+        tabela += `<tr>
+                        <td>${registro.tipo}</td>
+                        <td>${registro.data}</td>
+                        <td>${registro.hora}</td>
+                        <td>${registro.observacao}</td>
+                   </tr>`;
+    });
+    tabela += "</table>";
+
+    // Insere a tabela no elemento "relatorio"
+    document.getElementById("relatorio").innerHTML = tabela;
+}); //CORRIGIR ISSO COM O FLEP MAIS TARDE(URGENTE)
+/*
 // Salva o registro no localStorage
 function saveRegisterLocalStorage(register) {
     const registerLocalStorage = getRegisterLocalStorage("register");  // Obtém o array de registros do localStorage
@@ -195,7 +278,7 @@ function getRegisterLocalStorage(key) {
     let register = localStorage.getItem(key);  // Obtém os registros do localStorage pela chave fornecida
     return register ? JSON.parse(register) : [];  // Retorna os registros ou um array vazio se não houver nenhum
 }
-
+*/
 // ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
 // ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
@@ -206,7 +289,7 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
 // (X) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização
 // (X) A fazer 10, botar negrito os textos do código
-// ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
+// (X) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
 // ( ) A fazer 13, trocar a cor dos textos para branco e colocar uma div na big-div para ser um "template" (fundinho)
 // *** ( ) A fazer 14, adicionar todas as funcionalidades do código no JS
