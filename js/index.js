@@ -15,6 +15,7 @@ const btnDialogRegister = document.getElementById("btn-dialog-register");  // Bo
 const alertaSucesso = document.getElementById("alerta-ponto-registrado");  // Alerta de sucesso após registrar ponto
 const dialogUltimoRegistro = document.getElementById("dialog-ultimo-registro");  // Exibe o último registro no dialog
 const btnDialogFechar = document.getElementById("dialog-fechar");  // Botão para fechar o dialog de registro de ponto
+const observacaoRegister = document.getElementById("obs-dialog-ponto");
 
 // *** Elementos HTML relacionados ao dialog de registro anterior ***
 
@@ -57,11 +58,18 @@ function register() {
     let lastRegister = JSON.parse(localStorage.getItem("lastRegister"));  // Obtém o último registro do localStorage
 
     if (lastRegister) {  // Se houver um último registro, exibe suas informações
-        let lastDateRegister = lastRegister.date;
-        let lastTimeRegister = lastRegister.time;
-        let lastRegisterType = lastRegister.type;
+        if(lastRegister.isPrevious == false){
+            let lastDateRegister = lastRegister.date;
+            let lastTimeRegister = lastRegister.time;
+            let lastRegisterType = lastRegister.type;
 
-        dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " às " + lastTimeRegister + " durante o registro " + lastRegisterType;
+            dialogUltimoRegistro.textContent = "Último registro: " + lastDateRegister + " às " + lastTimeRegister + ". Tipo de registro: " + lastRegisterType;
+        } else {
+            let lastDateRegister = lastRegister.date;
+            let lastRegisterType = lastRegister.type;
+
+            dialogUltimoRegistro.textContent = "Último registro (marcado em data anterior): " + lastDateRegister + ". Tipo de registro: " + lastRegisterType;
+        }
     }
 
     // Esconde a mensagem de sucesso 
@@ -74,8 +82,8 @@ function register() {
 
 // Lida com o registro de ponto no dialog
 async function handleDialogRegister() {
-    let register = await getObjetctRegister(selectRegisterType.value);  // Cria o objeto de registro
-    //saveRegisterLocalStorage(register);  // Salva o registro no localStorage
+    let register = await getObjectRegister(selectRegisterType.value);  // Cria o objeto de registro
+    saveRegisterLocalStorage(register);  // Salva o registro no localStorage
     localStorage.setItem("lastRegister", JSON.stringify(register));  // Armazena o último registro no localStorage
 
     // Exibe uma mensagem de sucesso temporária
@@ -89,20 +97,27 @@ async function handleDialogRegister() {
 
     dialogPonto.close();  // Fecha o dialog de registro de ponto
 }
-// Conjunto de funções para proibir que o registro selecionado seja o próximo do último que foi selecionado
+// Função para proibir que o registro selecionado seja o próximo do último que foi selecionado
 // Array com a sequência de registros permitidos
 const sequenciaRegistros = ["entrada", "intervalo", "volta-intervalo", "saida"];
 let estadoAtual = 0; // Índice do próximo registro permitido
-
-document.getElementById("register-type").addEventListener("change", function() {
+document.getElementById("register-type").addEventListener("change", async function() {
     const tipoSelecionado = this.value;
 
-    // Verifica se o tipo selecionado é o próximo na sequência
-    if (tipoSelecionado === sequenciaRegistros[estadoAtual]) {
-        document.getElementById("btn-dialog-register").disabled = false; // Ativa o botão
-    } else {
-        alert("Selecione o próximo tipo de registro na sequência.");
-        this.value = ""; // Reseta a seleção para forçar o usuário a escolher a opção correta
+    try {
+        // Aguarda a localização do usuário antes de prosseguir
+        const location = await getUserLocation();
+
+        // Verifica se o tipo selecionado é o próximo na sequência e se a localização foi obtida
+        if (tipoSelecionado === sequenciaRegistros[estadoAtual]) {
+            document.getElementById("btn-dialog-register").disabled = false; // Ativa o botão
+        } else {
+            alert("Selecione o próximo tipo de registro na sequência.");
+            this.value = ""; // Reseta a seleção para forçar o usuário a escolher a opção correta
+            document.getElementById("btn-dialog-register").disabled = true; // Desativa o botão
+        }
+    } catch (error) {
+        this.value = ""; // Reseta a seleção para impedir o registro
         document.getElementById("btn-dialog-register").disabled = true; // Desativa o botão
     }
 });
@@ -139,16 +154,83 @@ function getUserLocation() {
         );
     });
 }
+function getNextId() {
+    const registros = getRegisterLocalStorage("register");
+    if (registros.length === 0) return 0; // Se não houver registros, inicia com 1
+    return Math.max(...registros.map(r => r.id)) + 1; // Retorna o próximo ID
+}
+
 // Cria o objeto de registro com as informações do ponto
-async function getObjetctRegister(registerType) {
+async function getObjectRegister(registerType) {
     const location = await getUserLocation();  // Obtém a localização do usuário
     return {
+        id: getNextId(),  // Atribui o próximo ID
         date: getCurrentDate(),  // Data atual
         time: getCurrentTime(),  // Hora atual
         location,  // Localização do usuário
-        id: 1,  // ID do registro
-        type: registerType  // Tipo de registro
+        type: registerType,  // Tipo de registro
+        obs: observacaoRegister.value,
+        isPrevious: false
     };
+}
+
+
+// Registra uma data anterior e valida se realmente é anterior ao dia de hoje ou se é uma data futura
+const today = new Date();   
+const registroDataAnt = document.getElementById("data-ant");
+const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");
+btnRegistrarAnterior.addEventListener("click", registerAntDate);
+registroDataAnt.max = formatarData(today);
+
+// Função que lida com o registro de uma data anterior
+async function registerAntDate() {
+    const dateInput = document.getElementById("data-ant").value;
+
+    // Verifica se o usuário preencheu data e hora
+    if (!dateInput) {
+        alert("Por favor, preencha a data e a hora antes de registrar.");
+        return; // Interrompe a função se data ou hora estiverem vazios
+    }
+
+    const selectedDate = new Date(dateInput);
+    const todayDate = new Date();
+
+    // Verifica se a data selecionada é futura
+    if (selectedDate > todayDate) {
+        alert("A data selecionada é inválida, por favor selecione uma data válida.");
+        return; // Interrompe a função se a data for futura
+    }
+
+    // Formata a data no padrão dd-mm-aaaa
+    const formattedDate = `${String(selectedDate.getDate()).padStart(2, '0')}/${String(selectedDate.getMonth() + 1).padStart(2, '0')}/${selectedDate.getFullYear()}`;
+
+    // Cria o objeto de registro com o indicador de registro anterior
+    const register = {
+        date: formattedDate,                // Data formatada no padrão dd-mm-aaaa
+        time: "",                           // Hora do input
+        location: await getUserLocation(),  // Localização do usuário
+        id: getNextId(),                              // ID do registro
+        type: document.getElementById("register-type-ant").value,  // Tipo de registro
+        obs: document.getElementById("obs-dialog-ant").value,      // Observação do input
+        isPrevious: true                    // Indicador de registro anterior
+    };
+
+    // Salva o registro no localStorage
+    saveRegisterLocalStorage(register);
+
+    localStorage.setItem("lastRegister", JSON.stringify(register));
+
+    // Exibe uma mensagem de sucesso temporária
+    alertaSucesso.classList.remove("hidden");
+    alertaSucesso.classList.add("show");
+
+    setTimeout(() => {
+        alertaSucesso.classList.remove("show");
+        alertaSucesso.classList.add("hidden");
+    }, 5000);
+
+    pontoAnterior.close();
+    dialogPonto.close();
 }
 
 // Atualiza a hora e a exibe nos campos relevantes
@@ -179,93 +261,16 @@ function getWeekDay() {
     const diasSemana = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
     return diasSemana[new Date().getDay()];  // Retorna o nome do dia da semana
 }
+
 function formatarData(data) {
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
     return '${dia}-${mes}-${ano}';
 }
-// Registra uma data anterior e valida se realmente é anterior ao dia de hoje ou se é uma data futura
-const today = new Date();   
-const registroDataAnt = document.getElementById("data-ant");
-const btnRegistrarAnterior = document.getElementById("btn-registrar-anterior");
-btnRegistrarAnterior.addEventListener("click", registerAntDate);
-registroDataAnt.max = formatarData(today);
-
-function registerAntDate(){
-
-    const selectedDate = new Date(registroDataAnt.value);
-    const todayDate = new Date();
-
-    if(selectedDate > todayDate){
-        alert("A data selecionada é inválida, por favor selecione uma data válida");
-    } else{
-        const dataFormatada = registroDataAnt.value;
-
-        localStorage.setItem('registeredAntDate', dataFormatada);
-
-        alert("Data anterior registrada com sucesso");
-
-        dialogUltimoRegistro.textContent = "último Registro(registrado em data anterior)" + selectedDate;
-    }
-}
 
 // *** LocalStorage ***
 
-document.getElementById("btn-dialog-register").addEventListener("click", function() {
-    // Dados do registro atual
-    const tipoRegistro = document.getElementById("register-type").value;
-    const dataRegistro = new Date().toLocaleDateString();
-    const horaRegistro = new Date().toLocaleTimeString();
-    const observacao = document.getElementById("obs-dialog-ponto").value;
-    
-    // Cria o objeto do registro
-    const registro = {
-        tipo: tipoRegistro,
-        data: dataRegistro,
-        hora: horaRegistro,
-        observacao: observacao
-    };
-
-    // Pega registros existentes do localStorage
-    let registros = JSON.parse(localStorage.getItem("registrosPonto")) || [];
-    registros.push(registro); // Adiciona o novo registro
-    localStorage.setItem("registrosPonto", JSON.stringify(registros)); // Salva no localStorage
-    
-    alert("Registro salvo com sucesso!");
-
-    // Reseta o formulário
-    document.getElementById("register-type").value = "";
-    document.getElementById("obs-dialog-ponto").value = "";
-    document.getElementById("btn-dialog-register").disabled = true;
-});
-//Página de relatório
-document.addEventListener("DOMContentLoaded", function() {
-    // Pega os registros do localStorage
-    const registros = JSON.parse(localStorage.getItem("registrosPonto")) || [];
-
-    // Verifica se há registros
-    if (registros.length === 0) {
-        document.getElementById("relatorio").innerHTML = "<p>Nenhum registro encontrado.</p>";
-        return;
-    }
-
-    // Cria a tabela para exibir os registros
-    let tabela = "<table><tr><th>Tipo</th><th>Data</th><th>Hora</th><th>Observação</th></tr>";
-    registros.forEach((registro) => {
-        tabela += `<tr>
-                        <td>${registro.tipo}</td>
-                        <td>${registro.data}</td>
-                        <td>${registro.hora}</td>
-                        <td>${registro.observacao}</td>
-                   </tr>`;
-    });
-    tabela += "</table>";
-
-    // Insere a tabela no elemento "relatorio"
-    document.getElementById("relatorio").innerHTML = tabela;
-}); //CORRIGIR ISSO COM O FLEP MAIS TARDE(URGENTE)
-/*
 // Salva o registro no localStorage
 function saveRegisterLocalStorage(register) {
     const registerLocalStorage = getRegisterLocalStorage("register");  // Obtém o array de registros do localStorage
@@ -278,7 +283,7 @@ function getRegisterLocalStorage(key) {
     let register = localStorage.getItem(key);  // Obtém os registros do localStorage pela chave fornecida
     return register ? JSON.parse(register) : [];  // Retorna os registros ou um array vazio se não houver nenhum
 }
-*/
+
 // ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
 // ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
@@ -292,6 +297,6 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
 //      ( ) A fazer 11.5, garantir que isso se aplique para pontos anteriores
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
-// ( ) A fazer 13, trocar a cor dos textos para branco e colocar uma div na big-div para ser um "template" (fundinho)
+// (X) A fazer 13, trocar a cor dos textos para branco e colocar uma div na big-div para ser um "template" (fundinho)
 // *** ( ) A fazer 14, adicionar todas as funcionalidades do código no JS
-// ( ) A fazer 15, concertar o rodapé, concertar responsividade e concertar o fundo-pagina-inicial
+// (X) A fazer 15, consertar o rodapé, consertar responsividade e consertar o fundo-pagina-inicial

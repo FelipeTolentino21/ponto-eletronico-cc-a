@@ -20,6 +20,7 @@
             <p id="hora-atual"></p>
             </div>
             <button id="btn-registrar-ponto"> <b>Registrar ponto</b> </button>
+            <a href="html\registros.html" id="link-registros">Registros Anteriores</a>
         </div>
     </div>
 
@@ -47,7 +48,7 @@
         </div>
 
         <p id="dialog-ultimo-registro"></p>
-
+        <!---->
     </dialog>
 
     <dialog id="ponto-anterior">
@@ -56,9 +57,7 @@
         </div>
         <div class="align-content-dialog">
             <label class="labels"><b>Selecione a data do registro:</b></label>
-            <input type="date" id="data-ant">
-            <label class="labels"><b>Selecione a hora do registro:</b></label>
-            <input type="time" id="hora-ant">
+            <input type="date" id="data-ant" required>
             <label class="labels"><b>Selecione o tipo de registro</b></label>
             <select name="register-type-ant" id="register-type-ant">
                 <option value="entrada">Entrada</option>
@@ -68,7 +67,6 @@
             </select>
             <label class="labels"><b>Escreva uma observação (opcional)</b></label>
             <textarea class="textareas" id="obs-dialog-ant" placeholder="500 caracteres" maxlength="500"></textarea>
-            <input type="file" id="arqv-ant" accept=".png, jpeg, .pdf, .docx">
             <button type="button" id="btn-registrar-anterior">Registrar</button>
             
         </div>
@@ -79,8 +77,6 @@
     </div>
 
     <script src="js/index.js"></script>
-
-    <a href="html\registros.html" id="link-registros">Registros Anteriores</a>
 
     <footer id="rodape"> 
         <b>Criado Por Felipe Tolentino Soares e Luis Guilherme Andrade Palhares de Melo</b>

@@ -22,10 +22,10 @@ body {
     height: 80%;
     min-height: 80dvh;
     color: white;
-    margin-top: 3vh;
-    margin-bottom: 5vh;
+    margin-top: 1dvb;
+    margin-bottom: 0;
 }
-
+/**/
 #fundo-pagina-inicial{
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ body {
 .data-hora{
     font-size: 25px;
 }
-/**/
+/* Definição do local onde se mostra a data e hora */
 .labels,#dialog-data,#dialog-hora{
     padding: 0;
     margin: 0;
@@ -51,17 +51,17 @@ body {
     color: white;
 }
 
-/**/
+/* Ajuste da posição da data */
 #dialog-data{
     margin-bottom: 10px;
 }
 
-/**/
+/* Ajuste da posição da hora */
 #dialog-hora{
     margin-bottom: 10px;
 }
     
-/**/
+/* Definições do botão para abrir a dialog-register */
 #btn-dialog-register{
     width: 180px;
     padding: 4px;
@@ -76,7 +76,7 @@ body {
     color: white;
     transition: background-color 0.3s, font 0.3s;
 }
-
+/* Personalização do local onde se mostra o último registro */
 #dialog-ultimo-registro{
     margin: 0;
     padding: 0;
@@ -85,12 +85,12 @@ body {
     font-size: 20px;
 }
 
-/**/
+/* Persoanlização do hover do botão de abrir o dialog */
 #btn-dialog-register:hover{
     background-color: rgb(148, 5, 134);
 }
 
-/**/
+/* Definições do botão de registro */
 #btn-registrar-ponto{
     background-color: rgb(95, 11, 103);
     border-color: rgb(112, 18, 174);
@@ -103,12 +103,12 @@ body {
     transition: background-color 0.3s, font 0.3s;
 }
 
-/**/
+/* Personalização do hover do botão de registro */
 #btn-registrar-ponto:hover{
     background-color: rgb(142, 4, 128);
 }
 
-/**/
+/* Definições do dialog-ponto */
 #dialog-ponto{
     font-weight: bold;
     background-color: rgb(95, 5, 93);
@@ -118,12 +118,12 @@ body {
     border-radius: 10px;
     border-width: 3px;
 }
-/**/
+/* Definição do backdrop do dialog */
 dialog::backdrop {
     background: rgb(113, 3, 125);
     opacity: 20%;
 }
-/**/
+/* Definições do botão de fechar o dialog */
 #dialog-fechar {
     padding: 5px;
     width: 35px;
@@ -132,14 +132,14 @@ dialog::backdrop {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
-/**/
+/* Personalização do hover do dialog */
 #dialog-fechar:hover{
     background-color: rgb(255, 54, 54);
     border-color: rgb(255, 54, 54);
     color: white; 
 }
 
-/**/
+/* Definições do registro */
 #register-type{
     margin: 0;
     padding: 4px;
@@ -151,12 +151,12 @@ dialog::backdrop {
     border-width: 2px;
     border-radius: 5px;
 }
-/**/
+/* Personalização do dialog */
 .align-content-dialog {
     display: flex;
     flex-direction: column;
 }
-/**/
+/* */
 .disalign-close-btn {
     display: flex;
     flex-direction: row-reverse;
@@ -203,6 +203,7 @@ dialog::backdrop {
 }
 /**/
 #btn-ponto-anterior{
+    font-size: 13px;
     margin: 0;
     padding: 0;
     width: 170px;
@@ -290,15 +291,25 @@ dialog::backdrop {
     font-size: 16px;
     text-align: center;
     padding:5px;
-    margin-top: 20px;
+    width: 100%;
+    background-color: rgb(99, 1, 132);
+    color: white;
+    margin-top: 3px;
+}
+
+#rodape2{
+    bottom: 0px;
+    font-size: 16px;
+    text-align: center;
+    padding:5px;
+    margin-top: 89px;
     width: 100%;
     background-color: rgb(99, 1, 132);
     color: white;
 }
 /**/
-#link-registros{
-    position: fixed;
-    top: 0px;
+#link-registros, #link-registros-voltar{
+    color: white;
 }
 
 #obs-dialog-ponto{
