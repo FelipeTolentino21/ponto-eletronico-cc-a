@@ -89,9 +89,37 @@ async function handleDialogRegister() {
 
     dialogPonto.close();  // Fecha o dialog de registro de ponto
 }
+// Array com a sequência de registros permitidos
+const sequenciaRegistros = ["entrada", "intervalo", "volta-intervalo", "saida"];
+let estadoAtual = 0; // Índice do próximo registro permitido
+
+document.getElementById("register-type").addEventListener("change", function() {
+    const tipoSelecionado = this.value;
+
+    // Verifica se o tipo selecionado é o próximo na sequência
+    if (tipoSelecionado === sequenciaRegistros[estadoAtual]) {
+        document.getElementById("btn-dialog-register").disabled = false; // Ativa o botão
+    } else {
+        alert("Selecione o próximo tipo de registro na sequência.");
+        this.value = ""; // Reseta a seleção para forçar o usuário a escolher a opção correta
+        document.getElementById("btn-dialog-register").disabled = true; // Desativa o botão
+    }
+});
+
+// Atualiza o estado após o registro
+document.getElementById("btn-dialog-register").addEventListener("click", function() {
+    if (estadoAtual < sequenciaRegistros.length - 1) {
+        estadoAtual++; // Avança para o próximo tipo de registro
+    } else {
+        alert("Todos os registros foram concluídos.");
+        estadoAtual = 0; // Reinicia a sequência
+    }
+    document.getElementById("register-type").value = ""; // Limpa a seleção do dropdown
+    document.getElementById("btn-dialog-register").disabled = true; // Desativa o botão até nova seleção
+});
 
 // *** Funções auxiliares ***
-//obtém a localização do usuário e nega o registro caso a permissão de localização não seja autorizada
+// Obtém a localização do usuário e nega o registro caso a permissão de localização não seja autorizada
 function getUserLocation() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
@@ -206,7 +234,8 @@ function getRegisterLocalStorage(key) {
 // (X) A fazer 8, corrigir bug quando o ponto é registrado com sucesso
 // (X) A fazer 9, adicionar um caso de erro para se o usuário tentar registrar ponto sem a localização
 // (X) A fazer 10, botar negrito os textos do código
-// ( ) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
+// (X) A fazer 11, garantir que o usuário apenas registre entrada seguido de intervalo seguido de saída do intervalo seguido de saída
+//      ( ) A fazer 11.5, garantir que isso se aplique para pontos anteriores
 // * ( ) A fazer 12, após isso, juntar esses 4 tipos em um "relatório", que vai estar na página separada
 // ( ) A fazer 13, trocar a cor dos textos para branco e colocar uma div na big-div para ser um "template" (fundinho)
 // *** ( ) A fazer 14, adicionar todas as funcionalidades do código no JS
