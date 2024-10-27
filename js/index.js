@@ -75,7 +75,7 @@ function register() {
 // Lida com o registro de ponto no dialog
 async function handleDialogRegister() {
     let register = await getObjetctRegister(selectRegisterType.value);  // Cria o objeto de registro
-    saveRegisterLocalStorage(register);  // Salva o registro no localStorage
+    //saveRegisterLocalStorage(register);  // Salva o registro no localStorage
     localStorage.setItem("lastRegister", JSON.stringify(register));  // Armazena o último registro no localStorage
 
     // Exibe uma mensagem de sucesso temporária
@@ -89,6 +89,7 @@ async function handleDialogRegister() {
 
     dialogPonto.close();  // Fecha o dialog de registro de ponto
 }
+// Conjunto de funções para proibir que o registro selecionado seja o próximo do último que foi selecionado
 // Array com a sequência de registros permitidos
 const sequenciaRegistros = ["entrada", "intervalo", "volta-intervalo", "saida"];
 let estadoAtual = 0; // Índice do próximo registro permitido
@@ -211,6 +212,60 @@ function registerAntDate(){
 
 // *** LocalStorage ***
 
+document.getElementById("btn-dialog-register").addEventListener("click", function() {
+    // Dados do registro atual
+    const tipoRegistro = document.getElementById("register-type").value;
+    const dataRegistro = new Date().toLocaleDateString();
+    const horaRegistro = new Date().toLocaleTimeString();
+    const observacao = document.getElementById("obs-dialog-ponto").value;
+    
+    // Cria o objeto do registro
+    const registro = {
+        tipo: tipoRegistro,
+        data: dataRegistro,
+        hora: horaRegistro,
+        observacao: observacao
+    };
+
+    // Pega registros existentes do localStorage
+    let registros = JSON.parse(localStorage.getItem("registrosPonto")) || [];
+    registros.push(registro); // Adiciona o novo registro
+    localStorage.setItem("registrosPonto", JSON.stringify(registros)); // Salva no localStorage
+    
+    alert("Registro salvo com sucesso!");
+
+    // Reseta o formulário
+    document.getElementById("register-type").value = "";
+    document.getElementById("obs-dialog-ponto").value = "";
+    document.getElementById("btn-dialog-register").disabled = true;
+});
+//Página de relatório
+document.addEventListener("DOMContentLoaded", function() {
+    // Pega os registros do localStorage
+    const registros = JSON.parse(localStorage.getItem("registrosPonto")) || [];
+
+    // Verifica se há registros
+    if (registros.length === 0) {
+        document.getElementById("relatorio").innerHTML = "<p>Nenhum registro encontrado.</p>";
+        return;
+    }
+
+    // Cria a tabela para exibir os registros
+    let tabela = "<table><tr><th>Tipo</th><th>Data</th><th>Hora</th><th>Observação</th></tr>";
+    registros.forEach((registro) => {
+        tabela += `<tr>
+                        <td>${registro.tipo}</td>
+                        <td>${registro.data}</td>
+                        <td>${registro.hora}</td>
+                        <td>${registro.observacao}</td>
+                   </tr>`;
+    });
+    tabela += "</table>";
+
+    // Insere a tabela no elemento "relatorio"
+    document.getElementById("relatorio").innerHTML = tabela;
+}); //CORRIGIR ISSO COM O FLEP MAIS TARDE(URGENTE)
+/*
 // Salva o registro no localStorage
 function saveRegisterLocalStorage(register) {
     const registerLocalStorage = getRegisterLocalStorage("register");  // Obtém o array de registros do localStorage
@@ -223,7 +278,7 @@ function getRegisterLocalStorage(key) {
     let register = localStorage.getItem(key);  // Obtém os registros do localStorage pela chave fornecida
     return register ? JSON.parse(register) : [];  // Retorna os registros ou um array vazio se não houver nenhum
 }
-
+*/
 // ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"
 // ( ) A fazer 3, formatar a data dependendo do local onde o site é acessado
