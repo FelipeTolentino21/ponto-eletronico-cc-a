@@ -91,7 +91,7 @@ function formatDateToDisplay(date) {
 // Eventos para os botões do dialog
 document.getElementById("save-edit").addEventListener("click", saveEdit);
 document.getElementById("close-edit").addEventListener("click", () => {
-document.getElementById("dialog-edit").close();
+    document.getElementById("dialog-edit").close();
 });
 
 // Exibe os registros ao carregar a página

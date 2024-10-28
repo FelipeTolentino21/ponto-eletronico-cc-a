@@ -1,17 +1,20 @@
-*{
+* {
     font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Body contendo o background do site*/
 body {
-    background-image: url(../imgs/purple_dragons_background.png);/*o .. é para indicar para o githubpages procurar fora do css a imagem do background*/
+    background-image: url(../imgs/purple_dragons_background.png);
+    /*o .. é para indicar para o githubpages procurar fora do css a imagem do background*/
+    
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     padding: 0;
     margin: 0;
-    overflow-x:hidden ;
+    overflow-x: hidden;
 }
+
 /* Personalização da caixa de div onde se tem a data/hoda/dia da semana e o botão para registrar ponto*/
 .big-div {
     display: flex;
@@ -26,11 +29,11 @@ body {
     margin-bottom: 0;
 }
 
-.registro{
+.registro {
     width: 500px;
 }
 
-#btn-justificativa{
+#btn-justificativa {
     width: 400px;
     padding: 4px;
     padding-top: 5px;
@@ -46,17 +49,15 @@ body {
     transition: background-color 0.3s, font 0.3s;
 }
 
-
-#btn-justificativa:hover{
+#btn-justificativa:hover {
     background-color: rgb(148, 5, 134);
 }
 
-#label-justificativa{
+#label-justificativa {
     margin-bottom: 10px;
 }
 
-/**/
-#fundo-pagina-inicial{
+#fundo-pagina-inicial {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,11 +71,14 @@ body {
 }
 
 /* Personalização da classe data-hora */
-.data-hora{
+.data-hora {
     font-size: 25px;
 }
+
 /* Definição do local onde se mostra a data e hora */
-.labels,#dialog-data,#dialog-hora{
+.labels,
+#dialog-data,
+#dialog-hora {
     padding: 0;
     margin: 0;
     font-size: 20px;
@@ -82,17 +86,17 @@ body {
 }
 
 /* Ajuste da posição da data */
-#dialog-data{
+#dialog-data {
     margin-bottom: 10px;
 }
 
 /* Ajuste da posição da hora */
-#dialog-hora{
+#dialog-hora {
     margin-bottom: 10px;
 }
-    
+
 /* Definições do botão para abrir a dialog-register */
-#btn-dialog-register{
+#btn-dialog-register {
     width: 180px;
     padding: 4px;
     padding-top: 20px;
@@ -108,12 +112,12 @@ body {
 }
 
 /* Persoanlização do hover do botão de abrir o dialog */
-#btn-dialog-register:hover{
+#btn-dialog-register:hover {
     background-color: rgb(148, 5, 134);
 }
 
 /* Personalização do local onde se mostra o último registro */
-#dialog-ultimo-registro{
+#dialog-ultimo-registro {
     margin: 0;
     padding: 0;
     margin-top: 10px;
@@ -122,7 +126,7 @@ body {
 }
 
 /* Definições do botão de registro */
-#btn-registrar-ponto{
+#btn-registrar-ponto {
     background-color: rgb(142, 4, 128);
     border-color: rgb(112, 18, 174);
     padding: 30px;
@@ -135,25 +139,27 @@ body {
 }
 
 /* Personalização do hover do botão de registro */
-#btn-registrar-ponto:hover{
+#btn-registrar-ponto:hover {
     background-color: rgb(159, 11, 144);
 }
 
 /* Definições do dialog-ponto */
-#dialog-ponto{
+#dialog-ponto {
     font-weight: bold;
     background-color: rgb(95, 5, 93);
     border-color: rgb(112, 18, 174);
-    width:400px;
+    width: 400px;
     padding: 40px;
     border-radius: 10px;
     border-width: 3px;
 }
+
 /* Definição do backdrop do dialog */
 dialog::backdrop {
     background: rgb(113, 3, 125);
     opacity: 20%;
 }
+
 /* Definições do botão de fechar o dialog */
 #dialog-fechar {
     padding: 5px;
@@ -163,15 +169,16 @@ dialog::backdrop {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
+
 /* Personalização do hover do dialog */
-#dialog-fechar:hover{
+#dialog-fechar:hover {
     background-color: rgb(255, 54, 54);
     border-color: rgb(255, 54, 54);
-    color: white; 
+    color: white;
 }
 
 /* Definições do registro */
-#register-type{
+#register-type {
     margin: 0;
     padding: 4px;
     font-size: 20px;
@@ -182,18 +189,19 @@ dialog::backdrop {
     border-width: 2px;
     border-radius: 5px;
 }
+
 /* Personalização do dialog */
 .align-content-dialog {
     display: flex;
     flex-direction: column;
 }
-/* */
+
 .disalign-close-btn {
     display: flex;
     flex-direction: row-reverse;
 }
-/**/
-#alerta-ponto-registrado{
+
+#alerta-ponto-registrado {
     font-weight: bold;
     border: 1px solid rgb(112, 18, 174);
     border-radius: 10px;
@@ -208,17 +216,15 @@ dialog::backdrop {
     color: white;
 }
 
-/**/
-#ponto-anterior{
+#ponto-anterior {
     background-color: rgb(95, 5, 93);
     border-color: rgb(112, 18, 174);
-    width:400px;
+    width: 400px;
     padding: 40px;
     border-radius: 10px;
     border-width: 3px;
 }
 
-/**/
 #dialog-fechar-anterior {
     padding: 5px;
     width: 35px;
@@ -227,14 +233,14 @@ dialog::backdrop {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
-/**/
-#dialog-fechar-anterior:hover{
+
+#dialog-fechar-anterior:hover {
     background-color: rgb(255, 54, 54);
     border-color: rgb(255, 54, 54);
-    color: white; 
+    color: white;
 }
-/**/
-#btn-ponto-anterior{
+
+#btn-ponto-anterior {
     font-size: 13px;
     margin: 0;
     padding: 0;
@@ -245,19 +251,20 @@ dialog::backdrop {
     text-decoration: underline;
     color: white;
 }
-/**/
-#btn-ponto-anterior:hover{
+
+#btn-ponto-anterior:hover {
     color: rgb(3, 133, 255);
 }
 
-#justificativa{
+#justificativa {
     background-color: rgb(95, 5, 93);
     border-color: rgb(112, 18, 174);
-    width:400px;
+    width: 400px;
     padding: 20px;
     border-radius: 10px;
     border-width: 3px;
 }
+
 #dialog-fechar-justificativa {
     padding: 5px;
     width: 35px;
@@ -266,14 +273,14 @@ dialog::backdrop {
     border-radius: 5px;
     transition: background-color 0.3s, font 0.3s, border-color 0.3s;
 }
-/**/
-#dialog-fechar-justificativa:hover{
+
+#dialog-fechar-justificativa:hover {
     background-color: rgb(255, 54, 54);
     border-color: rgb(255, 54, 54);
-    color: white; 
+    color: white;
 }
 
-#btn-enviar-justificativa{
+#btn-enviar-justificativa {
     width: 180px;
     padding: 4px;
     padding-top: 20px;
@@ -288,39 +295,39 @@ dialog::backdrop {
     transition: background-color 0.3s, font 0.3s;
 }
 
-#btn-enviar-justificativa:hover{
+#btn-enviar-justificativa:hover {
     background-color: rgb(148, 5, 134);
 }
 
-/**/
-#data-ant{
+#data-ant {
     width: 100px;
 }
-/**/
-#hora-ant{
+
+#hora-ant {
     width: 100px;
 }
-/**/
-#titulo{
+
+#titulo {
     color: white;
-    font-size: 55px; 
-    text-align: center;
-    margin: 0;
-    margin-bottom: 10px;
-}
-#titulo-registros{
-    color: white;
-    font-size: 55px; 
+    font-size: 55px;
     text-align: center;
     margin: 0;
     margin-bottom: 10px;
 }
 
-#label-type-register{
+#titulo-registros {
+    color: white;
+    font-size: 55px;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#label-type-register {
     margin-bottom: 5px;
 }
 
-#btn-ant-register{
+#btn-ant-register {
     width: 200px;
     padding: 4px;
     font-size: 20px;
@@ -332,35 +339,36 @@ dialog::backdrop {
     transition: background-color 0.3s, font 0.3s;
 }
 
-/**/
-#btn-ant-register:hover{
+#btn-ant-register:hover {
     background-color: rgb(148, 5, 134);
 }
 
-#register-type-ant{
+#register-type-ant {
     width: 150px;
     padding: 4px;
     font-size: 20px;
 }
 
-#data-ant,#hora-ant{
+#data-ant,
+#hora-ant {
     width: 150px;
     font-size: 20px;
 }
 
-.textareas{
+.textareas {
     resize: none;
     height: 100px;
     width: 400px;
     font-size: 15px;
 }
 
-#imagem-logo{
+#imagem-logo {
     height: 120px;
     width: 120px;
     margin-bottom: 10px;
 }
-#imagem-logo-2{
+
+#imagem-logo-2 {
     height: 120px;
     width: 120px;
     margin-bottom: 10px;
@@ -417,7 +425,8 @@ button:hover {
     color: white
 }
 
-#dialog-edit input, #dialog-edit select {
+#dialog-edit input,
+#dialog-edit select {
     width: 150px;
     font-size: 20px;
     margin-top: 5px;
@@ -425,7 +434,8 @@ button:hover {
     border-radius: 6px;
 }
 
-#save-edit, #close-edit {
+#save-edit,
+#close-edit {
     margin-top: 15px;
     padding: 8px;
     border-radius: 4px;
@@ -453,67 +463,73 @@ button:hover {
     background-color: rgb(255, 0, 0);
 }
 
-/**/
-#rodape{
+#rodape {
     bottom: 0px;
     font-size: 16px;
     text-align: center;
-    padding:5px;
+    padding: 5px;
     width: 100%;
     background-color: rgb(99, 1, 132);
     color: white;
     margin-top: 2px;
 }
 
-#rodape2{
+#rodape2 {
     bottom: 0px;
     font-size: 16px;
     text-align: center;
-    padding:5px;
+    padding: 5px;
     margin-top: 95px;
     width: 100%;
     background-color: rgb(99, 1, 132);
     color: white;
 }
-/**/
-#link-registros, #link-registros-voltar{
+
+#link-registros,
+#link-registros-voltar {
     color: white;
 }
 
-#obs-dialog-ponto{
+#obs-dialog-ponto {
     margin-bottom: 10px;
 }
 
-#obs-justificativa{
+#obs-justificativa {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-#arqv-justificativa{
+#arqv-justificativa {
     font-size: 15px;
     color: white;
 }
 
-/**/
-.hidden{
+.hidden {
     opacity: 0;
 }
 
-/**/
-.show{
+.show {
     opacity: 1;
 }
 
-/**/
-#dia-semana::first-line{font-weight: bold;}
-#data-atual::first-line{font-weight: bold;}
-#hora-atual::first-line{font-weight: bold;}
-
-#link-registros-voltar{
-    position: fixed;
-   
+#dia-semana::first-line {
+    font-weight: bold;
 }
-#imagem-tamanho{
+
+#data-atual::first-line {
+    font-weight: bold;
+}
+
+#hora-atual::first-line {
+    font-weight: bold;
+}
+
+#link-registros-voltar {
+    position: fixed;
+
+}
+
+#imagem-tamanho {
     width: 100px;
     height: 100px;
 }
