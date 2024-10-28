@@ -23,7 +23,13 @@ const pontoAnterior = document.getElementById("ponto-anterior");  // Dialog para
 const btnPontoAnterior = document.getElementById("btn-ponto-anterior");  // Botão que abre o dialog de ponto anterior
 const btnDialogFecharAnt = document.getElementById("dialog-fechar-anterior");  // Botão para fechar o dialog de ponto anterior
 
-
+// *** Elementos HTML relacionados ao dialog de justificativa ***
+const btnJustificativa = document.getElementById("btn-justificativa");
+const justificativa = document.getElementById("justificativa");
+const dialogFecharJustificativa = document.getElementById("dialog-fechar-justificativa");
+const obsJustificativa = document.getElementById("obs-justificativa");
+const arqvJustificativa = document.getElementById("arqv-justificativa");
+const btnEnviarJustificativa = document.getElementById("btn-enviar-justificativa");
 
 // *** Elementos HTML relacionados a pagina registros.html ***
 const registros = document.getElementById("registros");
@@ -50,6 +56,40 @@ btnDialogFecharAnt.addEventListener("click", () => {
     pontoAnterior.close();
     dialogPonto.showModal();
 });
+btnJustificativa.addEventListener("click",() =>{
+    justificativa.showModal();
+    dialogPonto.close();
+});
+
+dialogFecharJustificativa.addEventListener("click", ()=>{
+    justificativa.close();
+    dialogPonto.showModal();
+});
+
+btnEnviarJustificativa.addEventListener("click", () => {
+    // Verifica se a observação está preenchida
+    if (!obsJustificativa.value) {
+        alert("Por favor, escreva o motivo da sua falta antes de enviar.");
+        return; // Interrompe a função se a observação estiver vazia
+    }
+
+    // Cria um array para armazenar os arquivos
+    const arquivos = Array.from(arqvJustificativa.files).map(file => file.name);
+
+    // Cria um objeto para armazenar a justificativa
+    const justificativaData = {
+        observacao: obsJustificativa.value,
+        arquivos: arquivos // Armazena os nomes dos arquivos
+    };
+
+    // Salva a justificativa no localStorage
+    localStorage.setItem("justificativa", JSON.stringify(justificativaData));
+
+    alert("Justificativa enviada com sucesso");
+    justificativa.close();
+    dialogPonto.showModal();
+});
+
 
 // *** Funções principais ***
 
@@ -170,7 +210,8 @@ async function getObjectRegister(registerType) {
         location,  // Localização do usuário
         type: registerType,  // Tipo de registro
         obs: observacaoRegister.value,
-        isPrevious: false
+        isPrevious: false,
+        isEdited: false
     };
 }
 
@@ -206,13 +247,14 @@ async function registerAntDate() {
 
     // Cria o objeto de registro com o indicador de registro anterior
     const register = {
-        date: formattedDate,                // Data formatada no padrão dd-mm-aaaa
-        time: "",                           // Hora do input
-        location: await getUserLocation(),  // Localização do usuário
-        id: getNextId(),                              // ID do registro
-        type: document.getElementById("register-type-ant").value,  // Tipo de registro
-        obs: document.getElementById("obs-dialog-ant").value,      // Observação do input
-        isPrevious: true                    // Indicador de registro anterior
+        date: formattedDate,
+        time: "",
+        location: await getUserLocation(),
+        id: getNextId(),
+        type: document.getElementById("register-type-ant").value,
+        obs: document.getElementById("obs-dialog-ant").value,
+        isPrevious: true,
+        isEdited: false
     };
 
     // Salva o registro no localStorage
@@ -283,6 +325,10 @@ function getRegisterLocalStorage(key) {
     let register = localStorage.getItem(key);  // Obtém os registros do localStorage pela chave fornecida
     return register ? JSON.parse(register) : [];  // Retorna os registros ou um array vazio se não houver nenhum
 }
+
+// *** Página registros ***
+
+
 
 // ( ) A fazer, atualizar a data e o dia da semana se o usuário bater o ponto meia noite
 // (X) A fazer 2, usar <dialog> para criar um popup quando se é clicado no botão "Registrar ponto"

@@ -1,24 +1,46 @@
 <!DOCTYPE html>
 <html lang="PT-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registros - Purple Dragon Registrador de ponto eletrônico</title>
     <link rel="stylesheet" href="..\css\style.css">
-    <link rel="icon" href="imgs/purple-dragon-icon.png">
+    <link rel="icon" href="../imgs/purple-dragon-icon.png">
 </head>
-
 <body>
-    <a href="../index.html" id="link-registros-voltar">Voltar</a>
+    <a href="../index.html" id="link-registros-voltar"><img src="../imgs/voltarroxo.png" id="imagem-tamanho"></img></a>
     <div class="big-div">
-        <div id="relatorio"></div>
-        <h2 id="titulo"><b>Edite Seus Registros</b></h2> 
-        </div>
-        
-        <script src="../js/index.js"></script>
+        <img src="../imgs/purple-dragon-icon.png" id="imagem-logo-2">
+        <h2 id="titulo-registros">Registros anteriores</h2>
+        <div id="container-registros"></div>
+    </div>
+    <dialog id="dialog-edit">
+        <h3>Editar Registro</h3>
+        <label>Data:</label>
+        <input type="date" id="edit-date" required />
+    
+        <label>Hora:</label>
+        <input type="time" id="edit-time" required />
+    
+        <label>Tipo de Registro:</label>
+        <select id="edit-type">
+            <option value="entrada">Entrada</option>
+            <option value="intervalo">Intervalo</option>
+            <option value="volta-intervalo">Volta Intervalo</option>
+            <option value="saida">Saída</option>
+        </select>
+    
+        <label>Observação:</label>
+        <textarea id="edit-obs" class="textareas" placeholder="500 caracteres" maxlength="500"></textarea>
+    
+        <button id="save-edit">Salvar</button>
+        <button id="close-edit">Cancelar</button>
+    </dialog>
+
     <footer id="rodape2"> 
         <b>Criado Por Felipe Tolentino Soares e Luis Guilherme Andrade Palhares de Melo</b>
-    </footer> 
+    </footer>
+
+    <script src="../js/registros.js"></script>
 </body>
 </html>

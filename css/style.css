@@ -25,6 +25,36 @@ body {
     margin-top: 1dvb;
     margin-bottom: 0;
 }
+
+.registro{
+    width: 500px;
+}
+
+#btn-justificativa{
+    width: 400px;
+    padding: 4px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    background-color: rgb(83, 23, 91);
+    border-color: rgb(112, 18, 174);
+    border-width: 2px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: white;
+    transition: background-color 0.3s, font 0.3s;
+}
+
+
+#btn-justificativa:hover{
+    background-color: rgb(148, 5, 134);
+}
+
+#label-justificativa{
+    margin-bottom: 10px;
+}
+
 /**/
 #fundo-pagina-inicial{
     display: flex;
@@ -76,6 +106,12 @@ body {
     color: white;
     transition: background-color 0.3s, font 0.3s;
 }
+
+/* Persoanlização do hover do botão de abrir o dialog */
+#btn-dialog-register:hover{
+    background-color: rgb(148, 5, 134);
+}
+
 /* Personalização do local onde se mostra o último registro */
 #dialog-ultimo-registro{
     margin: 0;
@@ -85,14 +121,9 @@ body {
     font-size: 20px;
 }
 
-/* Persoanlização do hover do botão de abrir o dialog */
-#btn-dialog-register:hover{
-    background-color: rgb(148, 5, 134);
-}
-
 /* Definições do botão de registro */
 #btn-registrar-ponto{
-    background-color: rgb(95, 11, 103);
+    background-color: rgb(142, 4, 128);
     border-color: rgb(112, 18, 174);
     padding: 30px;
     width: 220px;
@@ -105,7 +136,7 @@ body {
 
 /* Personalização do hover do botão de registro */
 #btn-registrar-ponto:hover{
-    background-color: rgb(142, 4, 128);
+    background-color: rgb(159, 11, 144);
 }
 
 /* Definições do dialog-ponto */
@@ -186,6 +217,7 @@ dialog::backdrop {
     border-radius: 10px;
     border-width: 3px;
 }
+
 /**/
 #dialog-fechar-anterior {
     padding: 5px;
@@ -217,6 +249,49 @@ dialog::backdrop {
 #btn-ponto-anterior:hover{
     color: rgb(3, 133, 255);
 }
+
+#justificativa{
+    background-color: rgb(95, 5, 93);
+    border-color: rgb(112, 18, 174);
+    width:400px;
+    padding: 20px;
+    border-radius: 10px;
+    border-width: 3px;
+}
+#dialog-fechar-justificativa {
+    padding: 5px;
+    width: 35px;
+    font-size: 20px;
+    border-color: rgb(99, 1, 132);
+    border-radius: 5px;
+    transition: background-color 0.3s, font 0.3s, border-color 0.3s;
+}
+/**/
+#dialog-fechar-justificativa:hover{
+    background-color: rgb(255, 54, 54);
+    border-color: rgb(255, 54, 54);
+    color: white; 
+}
+
+#btn-enviar-justificativa{
+    width: 180px;
+    padding: 4px;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    background-color: rgb(83, 23, 91);
+    border-color: rgb(112, 18, 174);
+    border-width: 2px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: white;
+    transition: background-color 0.3s, font 0.3s;
+}
+
+#btn-enviar-justificativa:hover{
+    background-color: rgb(148, 5, 134);
+}
+
 /**/
 #data-ant{
     width: 100px;
@@ -227,6 +302,13 @@ dialog::backdrop {
 }
 /**/
 #titulo{
+    color: white;
+    font-size: 55px; 
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+#titulo-registros{
     color: white;
     font-size: 55px; 
     text-align: center;
@@ -278,12 +360,98 @@ dialog::backdrop {
     width: 120px;
     margin-bottom: 10px;
 }
-
-#arqv-ant{
-    font-size: 15px;
-    color: white;
+#imagem-logo-2{
+    height: 120px;
+    width: 120px;
+    margin-bottom: 10px;
 }
 
+#container-registros {
+    background-color: rgb(83, 23, 91);
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    max-width: 600px;
+    margin: auto;
+}
+
+.registro {
+    background-color: rgb(112, 18, 174);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: rgb(142, 4, 128);
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: rgb(148, 5, 134);
+}
+
+#dialog-edit {
+    width: 400px;
+    padding: 20px;
+    background-color: rgb(83, 23, 91);
+    border-radius: 8px;
+    color: rgb(83, 23, 91);
+}
+
+#dialog-edit h3 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+#dialog-edit label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: white
+}
+
+#dialog-edit input, #dialog-edit select {
+    width: 150px;
+    font-size: 20px;
+    margin-top: 5px;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+#save-edit, #close-edit {
+    margin-top: 15px;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#save-edit {
+    background-color: rgb(142, 4, 128);
+    color: white;
+    transition: background-color 0.3s;
+}
+
+#close-edit {
+    background-color: rgb(142, 4, 128);
+    color: white;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+#save-edit:hover {
+    background-color: rgb(148, 5, 134);
+}
+
+#close-edit:hover {
+    background-color: rgb(255, 0, 0);
+}
 
 /**/
 #rodape{
@@ -294,7 +462,7 @@ dialog::backdrop {
     width: 100%;
     background-color: rgb(99, 1, 132);
     color: white;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
 #rodape2{
@@ -302,7 +470,7 @@ dialog::backdrop {
     font-size: 16px;
     text-align: center;
     padding:5px;
-    margin-top: 89px;
+    margin-top: 95px;
     width: 100%;
     background-color: rgb(99, 1, 132);
     color: white;
@@ -313,8 +481,17 @@ dialog::backdrop {
 }
 
 #obs-dialog-ponto{
+    margin-bottom: 10px;
+}
+
+#obs-justificativa{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+#arqv-justificativa{
+    font-size: 15px;
+    color: white;
 }
 
 /**/
@@ -331,3 +508,12 @@ dialog::backdrop {
 #dia-semana::first-line{font-weight: bold;}
 #data-atual::first-line{font-weight: bold;}
 #hora-atual::first-line{font-weight: bold;}
+
+#link-registros-voltar{
+    position: fixed;
+   
+}
+#imagem-tamanho{
+    width: 100px;
+    height: 100px;
+}

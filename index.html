@@ -45,10 +45,23 @@
             <textarea class="textareas" id="obs-dialog-ponto" placeholder="500 caracteres" maxlength="500"></textarea>
             <button id="btn-dialog-register">Registrar</button>
             <button id="btn-ponto-anterior"><b>Registrar Ponto Anterior</b></button>
+            <button id="btn-justificativa"><b>Justifique uma falta</b></button>
         </div>
 
         <p id="dialog-ultimo-registro"></p>
-        <!---->
+    </dialog>
+
+    <dialog id="justificativa"> 
+        <div class="disalign-close-btn">
+            <button id="dialog-fechar-justificativa">X</button>
+        </div>
+        <div class="align-content-dialog">
+            <label class="labels" id="label-justificativa"><b>Escreva o motivo da sua falta</b></label>
+            <textarea class="textareas" id="obs-justificativa" placeholder="500 caracteres" maxlength="500"></textarea>
+            <label class="labels" id="label-justificativa"><b>Insira um arquivo para justificar sua falta (tipos permitidos: png, jpeg, pdf e docx)</b></label>
+            <input type="file" id="arqv-justificativa" accept=".png, jpeg, .pdf, .docx">
+            <button id="btn-enviar-justificativa">Registrar</button>
+        </div>
     </dialog>
 
     <dialog id="ponto-anterior">
@@ -68,7 +81,6 @@
             <label class="labels"><b>Escreva uma observação (opcional)</b></label>
             <textarea class="textareas" id="obs-dialog-ant" placeholder="500 caracteres" maxlength="500"></textarea>
             <button type="button" id="btn-registrar-anterior">Registrar</button>
-            
         </div>
     </dialog>
 
